@@ -26,7 +26,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageButton"
-            android:background="@drawable/btn_C" />
+            android:background="@drawable/btn_c" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -50,7 +51,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageButton2"
-            android:background="@drawable/btn_V" />
+            android:background="@drawable/btn_v" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -75,7 +77,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageButton3"
-            android:background="@drawable/btn_R" />
+            android:background="@drawable/btn_r" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -99,7 +102,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageButton4"
-            android:background="@drawable/btn_Z" />
+            android:background="@drawable/btn_z" />
     </LinearLayout>
 
     <LinearLayout
@@ -122,7 +125,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageButton5"
-            android:background="@drawable/btn_E" />
+            android:background="@drawable/btn_e" />
     </LinearLayout>
 
     <LinearLayout
@@ -146,7 +149,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageButton6"
-            android:background="@drawable/btn_G" />
+            android:background="@drawable/btn_g" />
     </LinearLayout>
 
     <LinearLayout
@@ -170,7 +173,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageButton7"
-            android:background="@drawable/btn_Q" />
+            android:background="@drawable/btn_q" />
     </LinearLayout>
 
     <LinearLayout
@@ -194,7 +197,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageButton8"
-            android:background="@drawable/btn_A" />
+            android:background="@drawable/btn_a" />
     </LinearLayout>
 
     <LinearLayout
@@ -218,7 +221,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageButton9"
-            android:background="@drawable/btn_P" />
+            android:background="@drawable/btn_p" />
     </LinearLayout>
 
     <LinearLayout
@@ -242,7 +245,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageButton10"
-            android:background="@drawable/btn_N" />
+            android:background="@drawable/btn_n" />
     </LinearLayout>
 
     <LinearLayout
@@ -265,7 +268,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageButton11"
-            android:background="@drawable/btn_ENTER" />
+            android:background="@drawable/btn_enter" />
     </LinearLayout>
 
     <LinearLayout
@@ -289,6 +292,6 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageButton12"
-            android:background="@drawable/btn_SPACE" />
+            android:background="@drawable/btn_space" />
     </LinearLayout>
 </RelativeLayout>
