@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">ELTE Planetárium</string>
+    <string name="app_name">Nightshade Remote</string>
+    <string name="label_c">Const. lines</string>
+    <string name="label_v">Const. names</string>
+    <string name="label_r">Const. artwork</string>
+    <string name="label_z">Azimuthal grid</string>
+    <string name="label_e">Equatorial grid</string>
+    <string name="label_g">Toggle ground</string>
+    <string name="label_q">Cardinal points</string>
+    <string name="label_a">Atmosphere</string>
+    <string name="label_p">Planet names</string>
+    <string name="label_n">Nebula names</string>
+    <string name="label_enter">Coordinate sys.</string>
+    <string name="label_space">Track</string>
 </resources>

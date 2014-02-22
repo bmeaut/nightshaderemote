@@ -1,297 +1,355 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<LinearLayout
+    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/const_lines"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:stretchColumns="*">
 
-        <TextView
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:weightSum="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/label_c"
+                    android:id="@+id/textView_c" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toggleButton_c"
+                    android:background="@drawable/button_c"
+                    android:singleLine="false"
+                    android:visibility="visible"
+                    android:textOff=" "
+                    android:textOn=" " />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:weightSum="1"
+                android:id="@+id/linearLayout"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/label_v"
+                    android:id="@+id/textView_v" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toggleButton_v"
+                    android:background="@drawable/button_v"
+                    android:singleLine="false"
+                    android:visibility="visible"
+                    android:textOff=" "
+                    android:textOn=" "/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:weightSum="1"
+                android:id="@+id/linearLayout2"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/label_r"
+                    android:id="@+id/textView_r" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toggleButton_r"
+                    android:background="@drawable/button_r"
+                    android:singleLine="false"
+                    android:visibility="visible"
+                    android:textOff=" "
+                    android:textOn=" " />
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Const. lines"
-            android:id="@+id/textView"
-            android:autoText="false" />
+            android:id="@+id/tableRow">
 
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageButton"
-            android:background="@drawable/btn_c" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:weightSum="1"
+                android:gravity="center" >
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/label_z"
+                    android:id="@+id/textView_z" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/const_names"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toggleButton_z"
+                    android:background="@drawable/button_z"
+                    android:singleLine="false"
+                    android:visibility="visible"
+                    android:textOff=" "
+                    android:textOn=" "/>
+            </LinearLayout>
 
-        <TextView
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:weightSum="1"
+                android:id="@+id/linearLayout3"
+                android:gravity="center" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/label_e"
+                    android:id="@+id/textView_e" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toggleButton_e"
+                    android:background="@drawable/button_e"
+                    android:singleLine="false"
+                    android:visibility="visible"
+                    android:textOff=" "
+                    android:textOn=" "/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:weightSum="1"
+                android:id="@+id/linearLayout4"
+                android:gravity="center" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/label_g"
+                    android:id="@+id/textView_g" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toggleButton_g"
+                    android:background="@drawable/button_g"
+                    android:singleLine="false"
+                    android:visibility="visible"
+                    android:textOff=" "
+                    android:textOn=" "/>
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Const. names"
-            android:id="@+id/textView2"
-            android:autoText="false"
-            android:singleLine="false" />
+            android:id="@+id/tableRow2">
 
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageButton2"
-            android:background="@drawable/btn_v" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:weightSum="1"
+                android:gravity="center" >
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/label_q"
+                    android:id="@+id/textView_q" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/const_artwork"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="false">
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toggleButton_q"
+                    android:background="@drawable/button_q"
+                    android:singleLine="false"
+                    android:visibility="visible"
+                    android:textOff=" "
+                    android:textOn=" "/>
+            </LinearLayout>
 
-        <TextView
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:weightSum="1"
+                android:id="@+id/linearLayout5"
+                android:gravity="center" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/label_a"
+                    android:id="@+id/textView_a" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toggleButton_a"
+                    android:background="@drawable/button_a"
+                    android:singleLine="false"
+                    android:visibility="visible"
+                    android:textOff=" "
+                    android:textOn=" "/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:weightSum="1"
+                android:id="@+id/linearLayout6"
+                android:gravity="center" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/label_p"
+                    android:id="@+id/textView_p" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toggleButton_P"
+                    android:background="@drawable/button_p"
+                    android:singleLine="false"
+                    android:visibility="visible"
+                    android:textOff=" "
+                    android:textOn=" "/>
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Const. artwork"
-            android:id="@+id/textView3"
-            android:autoText="false" />
+            android:id="@+id/tableRow3">
 
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageButton3"
-            android:background="@drawable/btn_r" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:weightSum="1"
+                android:gravity="center" >
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/label_n"
+                    android:id="@+id/textView_n" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/azimuthal_grid"
-        android:layout_below="@+id/const_lines"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toggleButton_n"
+                    android:background="@drawable/button_n"
+                    android:singleLine="false"
+                    android:visibility="visible"
+                    android:textOff=" "
+                    android:textOn=" "/>
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Azimuthal grid"
-            android:id="@+id/textView4"
-            android:autoText="false" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:weightSum="1"
+                android:id="@+id/linearLayout7"
+                android:gravity="center" >
 
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageButton4"
-            android:background="@drawable/btn_z" />
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/label_enter"
+                    android:id="@+id/textView_enter" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/equatorial_grid"
-        android:layout_below="@+id/const_names"
-        android:layout_centerHorizontal="true">
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toggleButton_enter"
+                    android:background="@drawable/button_enter"
+                    android:singleLine="false"
+                    android:visibility="visible"
+                    android:textOff=" "
+                    android:textOn=" "/>
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Equatorial grid"
-            android:id="@+id/textView5"
-            android:autoText="false" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:weightSum="1"
+                android:id="@+id/linearLayout8"
+                android:gravity="center" >
 
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageButton5"
-            android:background="@drawable/btn_e" />
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/label_space"
+                    android:id="@+id/textView_space" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/toggle_ground"
-        android:layout_below="@+id/const_artwork"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toggleButton_space"
+                    android:background="@drawable/button_space"
+                    android:singleLine="false"
+                    android:visibility="visible"
+                    android:textOff=" "
+                    android:textOn=" "/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Toggle ground"
-            android:id="@+id/textView6"
-            android:autoText="false" />
+            </LinearLayout>
+        </TableRow>
 
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageButton6"
-            android:background="@drawable/btn_g" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cardinal_points"
-        android:layout_below="@+id/azimuthal_grid"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Cardinal points"
-            android:id="@+id/textView7"
-            android:autoText="false" />
-
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageButton7"
-            android:background="@drawable/btn_q" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/toggle_atmosphere"
-        android:layout_below="@+id/equatorial_grid"
-        android:layout_alignLeft="@+id/equatorial_grid"
-        android:layout_alignStart="@+id/equatorial_grid">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Atmosphere"
-            android:id="@+id/textView8"
-            android:autoText="false" />
-
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageButton8"
-            android:background="@drawable/btn_a" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/planet_names"
-        android:layout_below="@+id/toggle_ground"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Planet names"
-            android:id="@+id/textView9"
-            android:autoText="false" />
-
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageButton9"
-            android:background="@drawable/btn_p" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/nebula_names"
-        android:layout_below="@+id/cardinal_points"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Nebula names"
-            android:id="@+id/textView10"
-            android:autoText="false" />
-
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageButton10"
-            android:background="@drawable/btn_n" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/coordinate_system"
-        android:layout_below="@+id/toggle_atmosphere"
-        android:layout_centerHorizontal="true">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Coordinate sys."
-            android:id="@+id/textView11"
-            android:autoText="false" />
-
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageButton11"
-            android:background="@drawable/btn_enter" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/track"
-        android:layout_below="@+id/planet_names"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Track"
-            android:id="@+id/textView12"
-            android:autoText="false" />
-
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageButton12"
-            android:background="@drawable/btn_space" />
-    </LinearLayout>
-</RelativeLayout>
+    </TableLayout>
+</LinearLayout>
