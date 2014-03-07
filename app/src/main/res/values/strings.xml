@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Nightshade Remote</string>
     <string name="label_c">Const. lines</string>
     <string name="label_v">Const. names</string>
@@ -12,4 +14,7 @@
     <string name="label_n">Nebula names</string>
     <string name="label_enter">Coordinate sys.</string>
     <string name="label_space">Track</string>
+    <string name="title_activity_main">Nightshade Remote</string>
+    <string name="action_settings">Settings</string><string name="label_scripts">Available Scripts</string>
+
 </resources>

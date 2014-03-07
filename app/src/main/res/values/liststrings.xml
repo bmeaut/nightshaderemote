@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string-array name="planetsArray">
+        <item>Merkúr</item>
+        <item>Vénusz</item>
+        <item>Föld</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Szaturnusz</item>
+        <item>Uránusz</item>
+        <item>Neptunusz</item>
+        <item>Plútó</item>
+    </string-array>
+</resources>
