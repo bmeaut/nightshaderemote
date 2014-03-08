@@ -3,6 +3,7 @@ package hu.bme.aut.nightshaderemote;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
@@ -24,7 +25,9 @@ public class MainActivity extends ActionBarActivity implements SendCommand.OnCom
             public void onClick(View v) {
                 String command = "/constellationLines/toggle";
 
-                new SendCommand("192.168.0.108", 8888, command, MainActivity.this).execute();
+                String serverIp = ((EditText) MainActivity.this.findViewById(R.id.etServerIp)).getText().toString();
+
+                new SendCommand(serverIp, 8888, command, MainActivity.this).execute();
             }
         });
     }

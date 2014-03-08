@@ -12,6 +12,31 @@
         android:id="@+id/textView"
         android:textSize="30sp"/>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Server IP:"
+            android:id="@+id/textView2"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/etServerIp"
+            android:layout_weight="1"
+            android:editable="true"
+            android:enabled="true"
+            android:text="192.168.1.108"
+            android:gravity="end"
+            android:textSize="23dp"/>
+    </LinearLayout>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
