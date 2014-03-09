@@ -1,6 +1,7 @@
 package hu.bme.aut.nightshaderemote.connectivity;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,30 +13,33 @@ import java.util.Scanner;
 /**
  * Created by akos on 3/6/14.
  */
-public class SendCommand extends AsyncTask<Void, Void, String> {
+public class SendCommand extends AsyncTask<Command, Void, String> {
     public static final String TAG = "SendCommand";
 
     protected String ip = "192.168.0.108";
     protected int port = 8888;
-    protected String uri;
 
     final OnCommandSentListener callback;
 
-    public SendCommand(String ip, int port, String uri, OnCommandSentListener callback) {
+    public SendCommand(String ip, int port, OnCommandSentListener callback) {
         this.ip = ip;
         this.port = port;
-        this.uri = uri;
         this.callback = callback;
     }
 
     @Override
-    protected String doInBackground(Void... params) {
+    protected String doInBackground(Command... params) {
         URL url = null;
         HttpURLConnection urlConnection = null;
 
+        Command command = params[0];
+
         String result = "--- no result ---";
         try {
-            url = new URL("http://" + ip + ":" + port + uri);
+            url = new URL("http://" + ip + ":" + port + command.getPath());
+
+            Log.d(TAG, "Sending command " + url.toString());
+
             urlConnection = (HttpURLConnection)url.openConnection();
 
             try {

@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import hu.bme.aut.nightshaderemote.connectivity.Command;
+import hu.bme.aut.nightshaderemote.connectivity.FlagCommand;
 import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
 
 /**
@@ -23,11 +25,11 @@ public class MainActivity extends ActionBarActivity implements SendCommand.OnCom
         findViewById(R.id.tgbtnConstLines).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String command = "/constellationLines/toggle";
+                Command command = new FlagCommand(FlagCommand.CommandName.ATMOSPHERE, FlagCommand.CommandState.TOGGLE);
 
                 String serverIp = ((EditText) MainActivity.this.findViewById(R.id.etServerIp)).getText().toString();
 
-                new SendCommand(serverIp, 8888, command, MainActivity.this).execute();
+                new SendCommand(serverIp, 8888, MainActivity.this).execute(command);
             }
         });
     }
