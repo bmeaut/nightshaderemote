@@ -1,6 +1,7 @@
 package hu.bme.aut.nightshaderemote;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +18,7 @@ import java.util.Arrays;
  */
 public class ScriptsFragment extends Fragment {
 
-    ListView mScriptList;
-    String[] mFileNames;
-    File mFile;
+private ListView mScriptList;
 
     public static ScriptsFragment newInstance(int sectionNumber) {
         ScriptsFragment fragment = new ScriptsFragment();
@@ -36,18 +35,27 @@ public class ScriptsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_scripts, container, false);
 
-
         mScriptList = (ListView) v.findViewById(R.id.scriptList);
 
-        mFile = new File("/sdcard/ns_scripts");
-        mFileNames = mFile.list(new FileExtensionFilter());
-        Arrays.sort(mFileNames);
+        refreshList();
 
+        return v;
+    }
+
+    private void refreshList() {
+        final String APP_FOLDER = "NightshadeRemote";
+        final String SCRIPTS_FOLDER = "scripts";
+
+        File sd = Environment.getExternalStorageDirectory();
+        File searchDir = new File(sd, new File(APP_FOLDER, SCRIPTS_FOLDER).getPath());
+        searchDir.mkdirs(); // első indulásnál jön létre
+
+        String[] mFileNames = searchDir.list(new FileExtensionFilter());
+        if (mFileNames == null) mFileNames = new String[0];
+        Arrays.sort(mFileNames);
 
         ArrayAdapter<String> scriptAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, mFileNames);
         mScriptList.setAdapter(scriptAdapter);
-
-        return v;
     }
 
     class FileExtensionFilter implements FilenameFilter
