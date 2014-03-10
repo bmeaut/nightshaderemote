@@ -9,6 +9,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends ActionBarActivity {
 
     /**
@@ -72,26 +75,25 @@ public class MainActivity extends ActionBarActivity {
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
+        private List<Fragment> fragmentList;
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            fragmentList = new ArrayList<>();
+            fragmentList.add(ButtonsFragment.newInstance());
+            fragmentList.add(ScriptsFragment.newInstance());
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            switch(position) {
-
-                case 0: return ButtonsFragment.newInstance(1);
-                case 1: return ScriptsFragment.newInstance(2);
-                default: return ButtonsFragment.newInstance(1);
-            }
+            return fragmentList.get(position);
         }
 
         @Override
         public int getCount() {
             // Show 2 total pages.
-            return 2;
+            return fragmentList.size();
         }
     }
 }

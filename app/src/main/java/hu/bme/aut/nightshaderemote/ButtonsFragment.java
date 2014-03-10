@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 public class ButtonsFragment extends Fragment {
 
-    public static ButtonsFragment newInstance(int sectionNumber) {
+    public static ButtonsFragment newInstance() {
         ButtonsFragment fragment = new ButtonsFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);

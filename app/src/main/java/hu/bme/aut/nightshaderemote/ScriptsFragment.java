@@ -20,7 +20,7 @@ public class ScriptsFragment extends Fragment {
 
 private ListView mScriptList;
 
-    public static ScriptsFragment newInstance(int sectionNumber) {
+    public static ScriptsFragment newInstance() {
         ScriptsFragment fragment = new ScriptsFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
