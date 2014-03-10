@@ -18,7 +18,8 @@ import java.util.Arrays;
  */
 public class ScriptsFragment extends Fragment {
 
-private ListView mScriptList;
+    public static final String TAG = "ScriptFragment";
+    private ListView mScriptList;
 
     public static ScriptsFragment newInstance() {
         ScriptsFragment fragment = new ScriptsFragment();
@@ -48,7 +49,7 @@ private ListView mScriptList;
 
         File sd = Environment.getExternalStorageDirectory();
         File searchDir = new File(sd, new File(APP_FOLDER, SCRIPTS_FOLDER).getPath());
-        searchDir.mkdirs(); // első indulásnál jön létre
+        boolean result = searchDir.mkdirs(); // első indulásnál jön létre
 
         String[] mFileNames = searchDir.list(new FileExtensionFilter());
         if (mFileNames == null) mFileNames = new String[0];
@@ -58,8 +59,13 @@ private ListView mScriptList;
         mScriptList.setAdapter(scriptAdapter);
     }
 
-    class FileExtensionFilter implements FilenameFilter
-    {
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshList();
+    }
+
+    class FileExtensionFilter implements FilenameFilter {
         public boolean accept(File dir, String name) {
             return (name.endsWith(".sts") || name.endsWith(".STS"));
         }
