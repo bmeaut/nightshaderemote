@@ -251,7 +251,7 @@
             <ToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_P"
+                android:id="@+id/toggleButton_p"
                 android:background="@drawable/button_p"
                 android:singleLine="false"
                 android:visibility="visible"
