@@ -1,9 +1,11 @@
 package hu.bme.aut.nightshaderemote;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import hu.bme.aut.nightshaderemote.connectivity.Command;
@@ -27,9 +29,9 @@ public class MainActivity extends ActionBarActivity implements SendCommand.OnCom
             public void onClick(View v) {
                 Command command = new FlagCommand(FlagCommand.CommandName.ATMOSPHERE, FlagCommand.CommandState.TOGGLE);
 
-                String serverIp = ((EditText) MainActivity.this.findViewById(R.id.etServerIp)).getText().toString();
+                //String serverIp = ((EditText) MainActivity.this.findViewById(R.id.etServerIp)).getText().toString();
 
-                new SendCommand(serverIp, 8888, MainActivity.this).execute(command);
+                new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), MainActivity.this).execute(command);
             }
         });
     }
@@ -37,5 +39,24 @@ public class MainActivity extends ActionBarActivity implements SendCommand.OnCom
     @Override
     public void onCommandSent(String result) {
         Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_preferences:
+                startActivity(new Intent(this, PreferencesActivity.class));
+                return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 }

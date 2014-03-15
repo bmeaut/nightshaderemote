@@ -44,6 +44,8 @@ public class FlagCommand implements Command {
         }
     }
 
+    public static String prefix = "flag";
+
     protected CommandName commandName;
     protected CommandState commandState;
 
@@ -54,6 +56,6 @@ public class FlagCommand implements Command {
 
     @Override
     public String getPath() {
-        return "/" + commandName.getPathPart() + "/" + commandState.getPathPart();
+        return "/" + prefix + "/" + commandName.getPathPart() + "/" + commandState.getPathPart();
     }
 }

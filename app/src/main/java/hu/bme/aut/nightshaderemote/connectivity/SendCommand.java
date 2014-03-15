@@ -17,11 +17,11 @@ public class SendCommand extends AsyncTask<Command, Void, String> {
     public static final String TAG = "SendCommand";
 
     protected String ip = "192.168.0.108";
-    protected int port = 8888;
+    protected String port = "8888";
 
     final OnCommandSentListener callback;
 
-    public SendCommand(String ip, int port, OnCommandSentListener callback) {
+    public SendCommand(String ip, String port, OnCommandSentListener callback) {
         this.ip = ip;
         this.port = port;
         this.callback = callback;
