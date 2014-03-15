@@ -6,10 +6,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import hu.bme.aut.nightshaderemote.connectivity.Command;
 import hu.bme.aut.nightshaderemote.connectivity.FlagCommand;
+import hu.bme.aut.nightshaderemote.connectivity.ScriptCommand;
 import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
 
 /**
@@ -29,13 +31,23 @@ public class MainActivity extends ActionBarActivity implements SendCommand.OnCom
             public void onClick(View v) {
                 Command command = new FlagCommand(FlagCommand.CommandName.ATMOSPHERE, FlagCommand.CommandState.TOGGLE);
 
-                //String serverIp = ((EditText) MainActivity.this.findViewById(R.id.etServerIp)).getText().toString();
-
                 new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), MainActivity.this).execute(command);
+            }
+        });
+
+        findViewById(R.id.executeScript).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String content = ((EditText) MainActivity.this.findViewById(R.id.scriptContent)).getText().toString();
+
+                Command c = new ScriptCommand(content);
+
+                new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), MainActivity.this).execute(c);
             }
         });
     }
 
+    /** {@inheritDoc} */
     @Override
     public void onCommandSent(String result) {
         Toast.makeText(this, result, Toast.LENGTH_SHORT).show();

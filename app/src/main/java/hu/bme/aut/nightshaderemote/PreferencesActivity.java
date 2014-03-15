@@ -3,9 +3,6 @@ package hu.bme.aut.nightshaderemote;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -14,7 +11,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
-import android.text.TextUtils;
 
 import java.util.List;
 
@@ -132,6 +128,7 @@ public class PreferencesActivity extends PreferenceActivity {
             String stringValue = value.toString();
 
             if (preference instanceof ListPreference) {
+                /*
                 // For list preferences, look up the correct display value in
                 // the preference's 'entries' list.
                 ListPreference listPreference = (ListPreference) preference;
@@ -142,8 +139,9 @@ public class PreferencesActivity extends PreferenceActivity {
                         index >= 0
                                 ? listPreference.getEntries()[index]
                                 : null);
-
+                */
             } else if (preference instanceof RingtonePreference) {
+                /*
                 // For ringtone preferences, look up the correct display value
                 // using RingtoneManager.
                 if (TextUtils.isEmpty(stringValue)) {
@@ -164,6 +162,7 @@ public class PreferencesActivity extends PreferenceActivity {
                         preference.setSummary(name);
                     }
                 }
+                */
 
             } else {
                 // For all other preferences, set the summary to the value's
