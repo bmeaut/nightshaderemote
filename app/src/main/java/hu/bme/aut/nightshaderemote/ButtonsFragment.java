@@ -42,6 +42,8 @@ public class ButtonsFragment extends Fragment {
 
         prepareButtons();
 
+        setHasOptionsMenu(true);
+
         return root;
     }
 
