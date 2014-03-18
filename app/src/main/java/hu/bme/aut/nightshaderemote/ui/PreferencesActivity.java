@@ -1,4 +1,4 @@
-package hu.bme.aut.nightshaderemote;
+package hu.bme.aut.nightshaderemote.ui;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -13,6 +13,8 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 
 import java.util.List;
+
+import hu.bme.aut.nightshaderemote.R;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On

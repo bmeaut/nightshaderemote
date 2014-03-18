@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="hu.bme.aut.nightshaderemote.PreferencesActivity"
+            android:name=".ui.PreferencesActivity"
             android:label="@string/title_activity_preferences" >
         </activity>
     </application>

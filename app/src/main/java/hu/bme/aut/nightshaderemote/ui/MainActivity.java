@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.bme.aut.nightshaderemote.PreferencesActivity;
 import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.ui.custombuttons.CustomButtonsFragment;
 

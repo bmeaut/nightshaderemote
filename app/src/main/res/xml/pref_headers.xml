@@ -3,7 +3,7 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="hu.bme.aut.nightshaderemote.PreferencesActivity$GeneralPreferenceFragment"
+        android:fragment="hu.bme.aut.nightshaderemote.ui.PreferencesActivity$GeneralPreferenceFragment"
         android:title="@string/pref_header_general" />
 
 </preference-headers>
