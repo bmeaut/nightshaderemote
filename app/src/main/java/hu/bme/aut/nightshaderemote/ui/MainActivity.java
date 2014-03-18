@@ -1,5 +1,6 @@
 package hu.bme.aut.nightshaderemote.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.bme.aut.nightshaderemote.PreferencesActivity;
 import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.ui.custombuttons.CustomButtonsFragment;
 
@@ -64,7 +66,8 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_preferences) {
+            startActivity(new Intent(this, PreferencesActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

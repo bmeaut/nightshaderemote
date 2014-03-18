@@ -14,6 +14,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import hu.bme.aut.nightshaderemote.R;
+import hu.bme.aut.nightshaderemote.U;
 import hu.bme.aut.nightshaderemote.connectivity.Command;
 import hu.bme.aut.nightshaderemote.connectivity.FlagCommand;
 import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
@@ -74,7 +75,7 @@ public class ButtonsFragment extends Fragment {
 
     private SendCommand prepareSendCommand() {
         // TODO shared prefs-ből!!!!
-        return new SendCommand("192.168.0.108", 8888, new SendCommand.OnCommandSentListener() {
+        return new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), new SendCommand.OnCommandSentListener() {
             @Override
             public void onCommandSent(String result) {
                 Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
