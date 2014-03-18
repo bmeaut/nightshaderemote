@@ -3,6 +3,7 @@ package hu.bme.aut.nightshaderemote.ui.custombuttons;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +21,10 @@ import java.util.Collection;
 import java.util.List;
 
 import hu.bme.aut.nightshaderemote.R;
+import hu.bme.aut.nightshaderemote.U;
+import hu.bme.aut.nightshaderemote.connectivity.Command;
+import hu.bme.aut.nightshaderemote.connectivity.ScriptCommand;
+import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
 
 /**
  * Created by Marci on 2014.03.15..
@@ -67,6 +72,17 @@ public class CustomButtonsFragment extends Fragment {
     protected void onCustomButtonClicked(CustomButton cubu) {
         Log.d(TAG, "Executing script <" + cubu.getTitle() + ">: " + cubu.getScriptText());
         Toast.makeText(getActivity(), "Executing <" + cubu.getTitle() + ">", Toast.LENGTH_SHORT).show();
+
+        String scriptContent = cubu.getScriptText();
+        if (! TextUtils.isEmpty(scriptContent)) {
+            Command c = new ScriptCommand(scriptContent);
+            new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), new SendCommand.OnCommandSentListener() {
+                @Override
+                public void onCommandSent(String result) {
+                    Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
+                }
+            }).execute(c);
+        }
     }
 
     @Override
