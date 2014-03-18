@@ -12,6 +12,7 @@ import android.widget.ListView;
 import java.io.File;
 import java.util.Arrays;
 
+import hu.bme.aut.nightshaderemote.FileExtensionFilter;
 import hu.bme.aut.nightshaderemote.R;
 
 /**

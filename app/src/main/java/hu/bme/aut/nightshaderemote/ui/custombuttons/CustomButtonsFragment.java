@@ -2,6 +2,7 @@ package hu.bme.aut.nightshaderemote.ui.custombuttons;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,10 +17,17 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import hu.bme.aut.nightshaderemote.FileExtensionFilter;
 import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.U;
 import hu.bme.aut.nightshaderemote.connectivity.Command;
@@ -30,6 +38,8 @@ import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
  * Created by Marci on 2014.03.15..
  */
 public class CustomButtonsFragment extends Fragment {
+
+    public int counter = 0; // TODO ideiglenes, teszteléshez
 
     public static final String TAG = "CustomButtonsFragment";
     private GridView gridView;
@@ -60,9 +70,11 @@ public class CustomButtonsFragment extends Fragment {
 
 
         // TODO temporary!
-        customButtonsAdapter.add(new CustomButton("constL", "flag constellation_drawing on"));
-        customButtonsAdapter.add(new CustomButton("nebula", "flag nebula_names on"));
-        customButtonsAdapter.add(new CustomButton("multi", "flag constellation_drawing on\nflag nebula_names on"));
+        CreateSTSFile("constL.sts", "flag constellation_drawing on");
+        CreateSTSFile("nebula.sts", "flag nebula_names on");
+        CreateSTSFile("multi.sts", "flag constellation_drawing on\nflag nebula_names on");
+
+        refreshCustomButtons();
 
 
         setHasOptionsMenu(true);
@@ -85,6 +97,56 @@ public class CustomButtonsFragment extends Fragment {
         }
     }
 
+    private void refreshCustomButtons() {
+
+        final String APP_FOLDER = "NightshadeRemote";
+        final String CUSTOM_BUTTONS_FOLDER = "custom_buttons";
+
+        File sd = Environment.getExternalStorageDirectory();
+        File searchDir = new File(sd, new File(APP_FOLDER, CUSTOM_BUTTONS_FOLDER).getPath());
+
+        // első indulásnál létrehozza a mappát ha még nem létezett
+        boolean result = searchDir.mkdirs();
+
+        // beolvassa az sts fájlokat egy tömbbe
+        File[] files = searchDir.listFiles(new FileExtensionFilter());
+
+        // kiüríti a customButtonList tömböt, hogy újraépíthesse, így nem duplikálódnak az elemek
+        customButtonsAdapter.clear();
+
+        // végigfut a tömbön és létrehozza custom button objektumokat
+        List<CustomButton> fromDirectory = new ArrayList<>(files.length);
+        for (File f : files) {
+            StringBuilder scriptContent = new StringBuilder();
+
+            BufferedReader reader = null;
+            try {
+                reader = new BufferedReader(new FileReader(f));
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    scriptContent.append(line).append('\n');
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
+            fromDirectory.add(new CustomButton(f.getName().substring(0, f.getName().length() - 4), scriptContent.toString()));
+        }
+
+        customButtonsAdapter.addAll(fromDirectory);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -101,13 +163,42 @@ public class CustomButtonsFragment extends Fragment {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.addnewbutton:
-                Toast.makeText(getActivity(), "New Button", Toast.LENGTH_SHORT).show();
-                customButtonsAdapter.add(new CustomButton("new button", ""));
+                //Toast.makeText(getActivity(), "New Button", Toast.LENGTH_SHORT).show();
+                //customButtonsAdapter.add(new CustomButton("new button", ""));
+                counter +=1;        // ideiglenes, teszteléshez
+                CreateSTSFile("New".concat(String.valueOf(counter)).concat(".sts"),"tartalom");
+                refreshCustomButtons();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void CreateSTSFile(String sFileName, String sBody) {
+        final String APP_FOLDER = "NightshadeRemote";
+        final String CUSTOM_BUTTONS_FOLDER = "custom_buttons";
+
+        File sd = Environment.getExternalStorageDirectory();
+        File searchDir = new File(sd, new File(APP_FOLDER, CUSTOM_BUTTONS_FOLDER).getPath());
+
+        File stsFile = new File(searchDir, sFileName);
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(stsFile);
+            writer.append(sBody);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (writer != null)
+                    writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                // wtf
+            }
+        }
     }
 
     /**
