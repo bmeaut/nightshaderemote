@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.Arrays;
 
 /**
@@ -38,12 +37,12 @@ public class ScriptsFragment extends Fragment {
 
         mScriptList = (ListView) v.findViewById(R.id.scriptList);
 
-        refreshList();
+        refreshScriptList();
 
         return v;
     }
 
-    private void refreshList() {
+    private void refreshScriptList() {
         final String APP_FOLDER = "NightshadeRemote";
         final String SCRIPTS_FOLDER = "scripts";
 
@@ -62,12 +61,6 @@ public class ScriptsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        refreshList();
-    }
-
-    class FileExtensionFilter implements FilenameFilter {
-        public boolean accept(File dir, String name) {
-            return (name.endsWith(".sts") || name.endsWith(".STS"));
-        }
+        refreshScriptList();
     }
 }
