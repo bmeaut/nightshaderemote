@@ -1,4 +1,4 @@
-package hu.bme.aut.nightshaderemote;
+package hu.bme.aut.nightshaderemote.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +11,9 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import hu.bme.aut.nightshaderemote.R;
+import hu.bme.aut.nightshaderemote.ui.custombuttons.CustomButtonsFragment;
 
 public class MainActivity extends ActionBarActivity {
 

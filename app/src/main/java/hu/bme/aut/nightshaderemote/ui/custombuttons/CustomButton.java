@@ -1,4 +1,4 @@
-package hu.bme.aut.nightshaderemote;
+package hu.bme.aut.nightshaderemote.ui.custombuttons;
 
 /**
  * Created by Marci on 2014.03.17..
@@ -6,6 +6,7 @@ package hu.bme.aut.nightshaderemote;
 public class CustomButton {
     private String title;
     private String scriptText;
+
     public CustomButton(String aTitle, String aScriptText){
         title = aTitle;
         scriptText = aScriptText;

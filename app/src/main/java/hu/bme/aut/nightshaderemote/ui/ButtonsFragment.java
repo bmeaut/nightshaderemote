@@ -1,4 +1,4 @@
-package hu.bme.aut.nightshaderemote;
+package hu.bme.aut.nightshaderemote.ui;
 
 /**
  * Created by Marci on 2014.03.01..
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.connectivity.Command;
 import hu.bme.aut.nightshaderemote.connectivity.FlagCommand;
 import hu.bme.aut.nightshaderemote.connectivity.SendCommand;

@@ -1,4 +1,4 @@
-package hu.bme.aut.nightshaderemote;
+package hu.bme.aut.nightshaderemote.ui;
 
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,6 +12,8 @@ import android.widget.ListView;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Arrays;
+
+import hu.bme.aut.nightshaderemote.R;
 
 /**
  * Created by Marci on 2014.03.01..
