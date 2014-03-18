@@ -1,0 +1,14 @@
+<resources>
+        <string name="title_activity_preferences">Preferences</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+    <string name="pref_title_serverAddress">Server address/IP</string>
+    <string name="pref_summary_serverAddress">The domain name or IP address of the server</string>
+    <string name="pref_title_serverPort">Server port</string>
+    <string name="pref_summary_serverPort">The port the server listens on</string>
+
+
+</resources>
