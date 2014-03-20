@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +22,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,9 +37,7 @@ import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
 /**
  * Created by Marci on 2014.03.15..
  */
-public class CustomButtonsFragment extends Fragment {
-
-    public int counter = 0; // TODO ideiglenes, teszteléshez
+public class CustomButtonsFragment extends Fragment implements AddNewButtonDialogFragment.IButtonAddedListener {
 
     public static final String TAG = "CustomButtonsFragment";
     private GridView gridView;
@@ -61,18 +59,13 @@ public class CustomButtonsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_custombuttons, container, false);
 
-       // planets= getResources().getStringArray(R.array.planetsArray);
+        // planets= getResources().getStringArray(R.array.planetsArray);
         gridView = (GridView) v.findViewById(R.id.customButtonList);
 
         customButtonsAdapter = new CustomButtonsAdapter();
 
         gridView.setAdapter(customButtonsAdapter);
 
-
-        // TODO temporary!
-        CreateSTSFile("constL.sts", "flag constellation_drawing on");
-        CreateSTSFile("nebula.sts", "flag nebula_names on");
-        CreateSTSFile("multi.sts", "flag constellation_drawing on\nflag nebula_names on");
 
         refreshCustomButtons();
 
@@ -86,7 +79,7 @@ public class CustomButtonsFragment extends Fragment {
         Toast.makeText(getActivity(), "Executing <" + cubu.getTitle() + ">", Toast.LENGTH_SHORT).show();
 
         String scriptContent = cubu.getScriptText();
-        if (! TextUtils.isEmpty(scriptContent)) {
+        if (!TextUtils.isEmpty(scriptContent)) {
             Command c = new ScriptCommand(scriptContent);
             new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), new SendCommand.OnCommandSentListener() {
                 @Override
@@ -165,40 +158,20 @@ public class CustomButtonsFragment extends Fragment {
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.addnewbutton:
-                //Toast.makeText(getActivity(), "New Button", Toast.LENGTH_SHORT).show();
-                //customButtonsAdapter.add(new CustomButton("new button", ""));
-                counter +=1;        // ideiglenes, teszteléshez
-                CreateSTSFile("New".concat(String.valueOf(counter)).concat(".sts"),"tartalom");
-                refreshCustomButtons();
+                //a new button gomb megnyomására létrejön egy dialódus fragment
+                AddNewButtonDialogFragment addNewButtonDialog = new AddNewButtonDialogFragment();
+                addNewButtonDialog.setTargetFragment(this, 0);
+                FragmentManager fm = getFragmentManager();
+                addNewButtonDialog.show(fm, AddNewButtonDialogFragment.TAG);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void CreateSTSFile(String sFileName, String sBody) {
-        final String APP_FOLDER = "NightshadeRemote";
-        final String CUSTOM_BUTTONS_FOLDER = "custom_buttons";
 
-        File sd = Environment.getExternalStorageDirectory();
-        File searchDir = new File(sd, new File(APP_FOLDER, CUSTOM_BUTTONS_FOLDER).getPath());
-
-        File stsFile = new File(searchDir, sFileName);
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter(stsFile);
-            writer.append(sBody);
-            writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (writer != null)
-                    writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-                // wtf
-            }
-        }
+    @Override
+    public void onButtonAdded() {
+        refreshCustomButtons();
     }
 
     /**
