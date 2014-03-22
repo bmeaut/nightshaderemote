@@ -15,6 +15,6 @@
     <string name="label_enter">Coordinate sys.</string>
     <string name="label_space">Track</string>
     <string name="title_activity_main">Nightshade Remote</string>
-    <string name="action_settings">Settings</string><string name="label_scripts">Available Scripts</string>
+    <string name="delete_string">Delete</string>
 
 </resources>

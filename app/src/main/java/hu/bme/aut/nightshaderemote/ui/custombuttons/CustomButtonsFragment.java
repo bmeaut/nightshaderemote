@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,6 +40,8 @@ import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
  */
 public class CustomButtonsFragment extends Fragment implements AddNewButtonDialogFragment.IButtonAddedListener {
 
+    CustomButton clickedButton; // TODO egyelőre nem tudom szebben megoldani
+
     public static final String TAG = "CustomButtonsFragment";
     private GridView gridView;
     CustomButtonsAdapter customButtonsAdapter;
@@ -59,13 +62,9 @@ public class CustomButtonsFragment extends Fragment implements AddNewButtonDialo
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_custombuttons, container, false);
 
-        // planets= getResources().getStringArray(R.array.planetsArray);
         gridView = (GridView) v.findViewById(R.id.customButtonList);
-
         customButtonsAdapter = new CustomButtonsAdapter();
-
         gridView.setAdapter(customButtonsAdapter);
-
 
         refreshCustomButtons();
 
@@ -168,6 +167,33 @@ public class CustomButtonsFragment extends Fragment implements AddNewButtonDialo
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.context_menu_custombuttons, menu);
+        clickedButton = (CustomButton) v.getTag();
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.delete_item:
+                final String APP_FOLDER = "NightshadeRemote";
+                final String CUSTOM_BUTTONS_FOLDER = "custom_buttons";
+
+                File sd = Environment.getExternalStorageDirectory();
+                File searchDir = new File(sd, new File(APP_FOLDER, CUSTOM_BUTTONS_FOLDER).getPath());
+                File stsFile = new File(searchDir, clickedButton.getTitle().concat(".sts")); // TODO ezzel így csak kisbetűs sts kiterjesztésű fájt lehet törölni
+                boolean deleted = stsFile.delete();
+                refreshCustomButtons();
+                //Toast.makeText(getActivity(), clickedButton.getTitle(), Toast.LENGTH_SHORT).show(); //TODO teszteléshez
+
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
 
     @Override
     public void onButtonAdded() {
@@ -237,8 +263,8 @@ public class CustomButtonsFragment extends Fragment implements AddNewButtonDialo
                     onCustomButtonClicked((CustomButton) v.getTag());
                 }
             });
-
             button.setTag(customButton);
+            registerForContextMenu(button);
 
             return itemView;
         }
