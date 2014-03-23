@@ -9,12 +9,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import hu.bme.aut.nightshaderemote.FileExtensionFilter;
 import hu.bme.aut.nightshaderemote.R;
+import hu.bme.aut.nightshaderemote.U;
+import hu.bme.aut.nightshaderemote.connectivity.Command;
+import hu.bme.aut.nightshaderemote.connectivity.RunCommand;
+import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
 
 /**
  * Created by Marci on 2014.03.01..
@@ -41,14 +47,20 @@ public class ScriptsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_scripts, container, false);
 
         mScriptList = (ListView) v.findViewById(R.id.scriptList);
-        adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, new String[] {});
+        adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, new ArrayList<String>());
         mScriptList.setAdapter(adapter);
 
         mScriptList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String filename = adapter.getItem(position);
-                // TODO create & send command
+                Command c = new RunCommand(filename);
+                new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), new SendCommand.OnCommandSentListener() {
+                    @Override
+                    public void onCommandSent(String result) {
+                        Toast .makeText(ScriptsFragment.this.getActivity(), result, Toast.LENGTH_SHORT).show();
+                    }
+                }).execute(c);
             }
         });
 
@@ -58,11 +70,9 @@ public class ScriptsFragment extends Fragment {
     }
 
     private void refreshScriptList() {
-        final String APP_FOLDER = "NightshadeRemote";
-        final String SCRIPTS_FOLDER = "scripts";
 
         File sd = Environment.getExternalStorageDirectory();
-        File searchDir = new File(sd, new File(APP_FOLDER, SCRIPTS_FOLDER).getPath());
+        File searchDir = new File(sd, new File(U.C.APP_FOLDER, U.C.SCRIPTS_FOLDER).getPath());
         boolean result = searchDir.mkdirs(); // első indulásnál jön létre
 
         String[] mFileNames = searchDir.list(new FileExtensionFilter());

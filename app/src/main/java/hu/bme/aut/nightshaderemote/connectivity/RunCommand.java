@@ -5,10 +5,13 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import hu.bme.aut.nightshaderemote.U;
 
 /**
  * @author Ákos Pap
@@ -26,7 +29,12 @@ public class RunCommand implements Command {
 
     @Override
     public String getPath() {
-        return "/" + prefix + "?file=" + filename;
+        try {
+            return "/" + prefix + "?file=" + URLEncoder.encode(filename, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Log.wtf(TAG, "URLEncoder doesn't support UTF-8 encoding. WTF!?", e);
+        }
+        return "";
     }
 
     @Override
@@ -36,12 +44,10 @@ public class RunCommand implements Command {
 
     @Override
     public void writePostData(OutputStream out) {
-        final String APP_FOLDER = "NightshadeRemote";
-        final String CUSTOM_BUTTONS_FOLDER = "custom_buttons";
-        File dir = new File(Environment.getExternalStorageDirectory(), new File(APP_FOLDER, CUSTOM_BUTTONS_FOLDER).getPath());
+
+        File dir = new File(Environment.getExternalStorageDirectory(), new File(U.C.APP_FOLDER, U.C.SCRIPTS_FOLDER).getPath());
         File f = new File(dir, filename);
 
-        if (f.exists() && f.canRead()) {
             InputStream in = null;
             try {
                 in = new FileInputStream(f);
@@ -50,10 +56,8 @@ public class RunCommand implements Command {
                 while ((len = in.read(buffer)) != -1) {
                     out.write(buffer, 0, len);
                 }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, "File doesn't exists, or cannot read it! (" + filename + ")", e);
             } finally {
                 if (in != null) try {
                     in.close();
@@ -68,8 +72,7 @@ public class RunCommand implements Command {
                     e.printStackTrace();
                 }
             }
-        } else {
-            Log.e(TAG, "File doesn't exists, or cannot read it! (" + filename + ")");
-        }
+
+
     }
 }

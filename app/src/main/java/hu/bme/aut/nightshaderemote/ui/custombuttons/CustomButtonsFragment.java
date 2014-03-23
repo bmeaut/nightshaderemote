@@ -32,7 +32,7 @@ import hu.bme.aut.nightshaderemote.FileExtensionFilter;
 import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.U;
 import hu.bme.aut.nightshaderemote.connectivity.Command;
-import hu.bme.aut.nightshaderemote.connectivity.ScriptCommand;
+import hu.bme.aut.nightshaderemote.connectivity.ExecuteCommand;
 import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
 
 /**
@@ -79,7 +79,7 @@ public class CustomButtonsFragment extends Fragment implements AddNewButtonDialo
 
         String scriptContent = cubu.getScriptText();
         if (!TextUtils.isEmpty(scriptContent)) {
-            Command c = new ScriptCommand(scriptContent);
+            Command c = new ExecuteCommand(scriptContent);
             new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), new SendCommand.OnCommandSentListener() {
                 @Override
                 public void onCommandSent(String result) {

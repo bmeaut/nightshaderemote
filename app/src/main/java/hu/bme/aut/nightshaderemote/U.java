@@ -9,6 +9,12 @@ import android.preference.PreferenceManager;
  * Created by akos on 2014.03.15..
  */
 public class U {
+    public static class C {
+        public static final String APP_FOLDER = "NightshadeRemote";
+        public static final String SCRIPTS_FOLDER = "scripts";
+        public static final String CUSTOM_BUTTONS_FOLDER = "custom_buttons";
+    }
+
     protected static Context context;
     public static void init(Context context) {
         U.context = context;
