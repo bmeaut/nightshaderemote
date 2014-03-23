@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -22,6 +23,7 @@ public class ScriptsFragment extends Fragment {
 
     public static final String TAG = "ScriptFragment";
     private ListView mScriptList;
+    private ArrayAdapter<String> adapter;
 
     public static ScriptsFragment newInstance() {
         ScriptsFragment fragment = new ScriptsFragment();
@@ -39,6 +41,16 @@ public class ScriptsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_scripts, container, false);
 
         mScriptList = (ListView) v.findViewById(R.id.scriptList);
+        adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, new String[] {});
+        mScriptList.setAdapter(adapter);
+
+        mScriptList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String filename = adapter.getItem(position);
+                // TODO create & send command
+            }
+        });
 
         refreshScriptList();
 
@@ -57,8 +69,12 @@ public class ScriptsFragment extends Fragment {
         if (mFileNames == null) mFileNames = new String[0];
         Arrays.sort(mFileNames);
 
-        ArrayAdapter<String> scriptAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, mFileNames);
-        mScriptList.setAdapter(scriptAdapter);
+        adapter.clear();
+        adapter.setNotifyOnChange(false);
+        for (String s : mFileNames) {
+            adapter.add(s);
+        }
+        adapter.notifyDataSetChanged();
     }
 
     @Override
