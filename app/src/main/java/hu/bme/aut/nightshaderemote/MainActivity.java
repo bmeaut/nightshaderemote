@@ -10,8 +10,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import hu.bme.aut.nightshaderemote.connectivity.Command;
+import hu.bme.aut.nightshaderemote.connectivity.ExecuteCommand;
 import hu.bme.aut.nightshaderemote.connectivity.FlagCommand;
-import hu.bme.aut.nightshaderemote.connectivity.ScriptCommand;
+import hu.bme.aut.nightshaderemote.connectivity.RunCommand;
 import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
 
 /**
@@ -40,8 +41,17 @@ public class MainActivity extends ActionBarActivity implements SendCommand.OnCom
             public void onClick(View v) {
                 String content = ((EditText) MainActivity.this.findViewById(R.id.scriptContent)).getText().toString();
 
-                Command c = new ScriptCommand(content);
+                Command c = new ExecuteCommand(content);
 
+                new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), MainActivity.this).execute(c);
+            }
+        });
+
+        findViewById(R.id.runScript).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String filename = "multi.sts";
+                Command c = new RunCommand(filename);
                 new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), MainActivity.this).execute(c);
             }
         });

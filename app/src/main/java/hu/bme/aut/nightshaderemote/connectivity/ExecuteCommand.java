@@ -9,12 +9,12 @@ import java.io.PrintWriter;
  *
  * @author Ákos Pap
  */
-public class ScriptCommand implements Command {
+public class ExecuteCommand implements Command {
 
     /**
      * The prefix in the URL, that chooses the functionality.
      */
-    public static final String prefix = "script";
+    public static final String prefix = "execute";
 
     /**
      * This string will be sent to the server for execution.
@@ -25,7 +25,7 @@ public class ScriptCommand implements Command {
      * Constructs a command to execute a script on the server.
      * @param content The script to execute.
      */
-    public ScriptCommand(String content) {
+    public ExecuteCommand(String content) {
         this.content = content;
     }
 

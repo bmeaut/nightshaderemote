@@ -1,5 +1,6 @@
 package hu.bme.aut.nightshaderemote.connectivity;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -30,5 +31,5 @@ public interface Command {
      * <p><strong>Don't forget to flush the stream!</strong></p>
      * @param out The stream to write into.
      */
-    void writePostData(OutputStream out);
+    void writePostData(OutputStream out) throws IOException;
 }
