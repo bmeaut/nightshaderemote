@@ -19,12 +19,17 @@ import hu.bme.aut.nightshaderemote.R;
 /**
  * Created by Marci on 2014.03.20..
  */
-public class AddNewButtonDialogFragment extends DialogFragment {
-    public static final String TAG = "AddNewButtonDialogFragment";
+public class NewAndEditButtonDialogFragment extends DialogFragment {
+    public static final String TAG = "NewAndEditButtonDialogFragment";
 
     private EditText fileNameText;
     private EditText scriptText;
+    private String initialFileName = "";
+    private String initialScript = "";
     private IButtonAddedListener listener;
+
+
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -49,6 +54,12 @@ public class AddNewButtonDialogFragment extends DialogFragment {
 
         fileNameText = (EditText) root.findViewById(R.id.filename);
         scriptText = (EditText) root.findViewById(R.id.script);
+
+        // Beállítja a kezdeti értékeket
+
+        fileNameText.setText(initialFileName);
+        scriptText.setText(initialScript);
+
 
         root.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +108,11 @@ public class AddNewButtonDialogFragment extends DialogFragment {
                 // wtf
             }
         }
+    }
+    public void setInitialValues (String Title, String Script){
+
+        initialFileName = Title;
+        initialScript = Script;
     }
 
     //interface
