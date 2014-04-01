@@ -12,6 +12,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
+import hu.bme.aut.nightshaderemote.NightshadeRemoteApplication;
+
 /**
  * Calls the server with the URL constructed from the given command.
  * <p>
@@ -86,7 +88,8 @@ public class SendCommand extends AsyncTask<Command, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         if (callback != null) {
-            callback.onCommandSent(s);
+            //callback.onCommandSent(s);
+            NightshadeRemoteApplication.responseProcessor().process(s);
         }
     }
 

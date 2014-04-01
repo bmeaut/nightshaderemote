@@ -1,19 +1,26 @@
 package hu.bme.aut.nightshaderemote.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import hu.bme.aut.nightshaderemote.R;
+import hu.bme.aut.nightshaderemote.connectivity.ResponseProcessor;
+import hu.bme.aut.nightshaderemote.connectivity.models.JResponse;
 import hu.bme.aut.nightshaderemote.ui.custombuttons.CustomButtonsFragment;
 
 public class MainActivity extends ActionBarActivity {
@@ -48,6 +55,22 @@ public class MainActivity extends ActionBarActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.hasExtra(ResponseProcessor.KEY_RESPONSE)) {
+                    JResponse response = ((JResponse) intent.getSerializableExtra(ResponseProcessor.KEY_RESPONSE));
+                    Toast.makeText(
+                            context,
+                            String.format("Response arrived!\nText: %s\nConstLines: %s",
+                                    response.getResponse(),
+                                    response.getFlagState().isConstellationLines()
+                            ),
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+        }, new IntentFilter(ResponseProcessor.INTENT_ACTION_RESPONSE_ARRIVED));
     }
 
 
