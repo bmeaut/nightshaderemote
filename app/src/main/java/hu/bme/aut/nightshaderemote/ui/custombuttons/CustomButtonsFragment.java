@@ -38,7 +38,7 @@ import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
 /**
  * Created by Marci on 2014.03.15..
  */
-public class CustomButtonsFragment extends Fragment implements AddNewButtonDialogFragment.IButtonAddedListener {
+public class CustomButtonsFragment extends Fragment implements NewAndEditButtonDialogFragment.IButtonAddedListener {
 
     CustomButton clickedButton; // TODO egyelőre nem tudom szebben megoldani
 
@@ -158,10 +158,10 @@ public class CustomButtonsFragment extends Fragment implements AddNewButtonDialo
         switch (item.getItemId()) {
             case R.id.addnewbutton:
                 //a new button gomb megnyomására létrejön egy dialódus fragment
-                AddNewButtonDialogFragment addNewButtonDialog = new AddNewButtonDialogFragment();
+                NewAndEditButtonDialogFragment addNewButtonDialog = new NewAndEditButtonDialogFragment();
                 addNewButtonDialog.setTargetFragment(this, 0);
                 FragmentManager fm = getFragmentManager();
-                addNewButtonDialog.show(fm, AddNewButtonDialogFragment.TAG);
+                addNewButtonDialog.show(fm, NewAndEditButtonDialogFragment.TAG);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -189,7 +189,15 @@ public class CustomButtonsFragment extends Fragment implements AddNewButtonDialo
                 boolean deleted = stsFile.delete();
                 refreshCustomButtons();
                 //Toast.makeText(getActivity(), clickedButton.getTitle(), Toast.LENGTH_SHORT).show(); //TODO teszteléshez
+                break;
 
+            case R.id.edit_item:
+                //Toast.makeText(getActivity(),"Edit", Toast.LENGTH_SHORT).show(); //TODO teszteléshez
+                NewAndEditButtonDialogFragment addNewButtonDialog = new NewAndEditButtonDialogFragment();
+                addNewButtonDialog.setTargetFragment(this, 0);
+                FragmentManager fm = getFragmentManager();
+                addNewButtonDialog.show(fm, NewAndEditButtonDialogFragment.TAG);
+                addNewButtonDialog.setInitialValues(clickedButton.getTitle(),clickedButton.getScriptText());
                 return true;
         }
         return super.onContextItemSelected(item);
