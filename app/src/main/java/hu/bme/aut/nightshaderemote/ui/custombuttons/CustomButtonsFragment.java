@@ -38,7 +38,7 @@ import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
 /**
  * Created by Marci on 2014.03.15..
  */
-public class CustomButtonsFragment extends Fragment implements NewAndEditButtonDialogFragment.IButtonAddedListener {
+public class CustomButtonsFragment extends Fragment implements ButtonDialogFragment.IButtonAddedListener {
 
     CustomButton clickedButton; // TODO egyelőre nem tudom szebben megoldani
 
@@ -158,10 +158,10 @@ public class CustomButtonsFragment extends Fragment implements NewAndEditButtonD
         switch (item.getItemId()) {
             case R.id.addnewbutton:
                 //a new button gomb megnyomására létrejön egy dialódus fragment
-                NewAndEditButtonDialogFragment addNewButtonDialog = new NewAndEditButtonDialogFragment();
+                ButtonDialogFragment addNewButtonDialog = new ButtonDialogFragment();
                 addNewButtonDialog.setTargetFragment(this, 0);
                 FragmentManager fm = getFragmentManager();
-                addNewButtonDialog.show(fm, NewAndEditButtonDialogFragment.TAG);
+                addNewButtonDialog.show(fm, ButtonDialogFragment.TAG);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -189,15 +189,18 @@ public class CustomButtonsFragment extends Fragment implements NewAndEditButtonD
                 boolean deleted = stsFile.delete();
                 refreshCustomButtons();
                 //Toast.makeText(getActivity(), clickedButton.getTitle(), Toast.LENGTH_SHORT).show(); //TODO teszteléshez
-                break;
+                return true;
 
             case R.id.edit_item:
                 //Toast.makeText(getActivity(),"Edit", Toast.LENGTH_SHORT).show(); //TODO teszteléshez
-                NewAndEditButtonDialogFragment addNewButtonDialog = new NewAndEditButtonDialogFragment();
+                ButtonDialogFragment addNewButtonDialog = new ButtonDialogFragment();
+                Bundle b = new Bundle();
+                b.putString("Title",clickedButton.getTitle());
+                b.putString("Script",clickedButton.getScriptText());
+                addNewButtonDialog.setArguments(b);
                 addNewButtonDialog.setTargetFragment(this, 0);
                 FragmentManager fm = getFragmentManager();
-                addNewButtonDialog.show(fm, NewAndEditButtonDialogFragment.TAG);
-                addNewButtonDialog.setInitialValues(clickedButton.getTitle(),clickedButton.getScriptText());
+                addNewButtonDialog.show(fm, ButtonDialogFragment.TAG);
                 return true;
         }
         return super.onContextItemSelected(item);
@@ -261,7 +264,7 @@ public class CustomButtonsFragment extends Fragment implements NewAndEditButtonD
             final CustomButton customButton = items.get(position);
 
             LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View itemView = inflater.inflate(R.layout.item_cutombutton, null);
+            View itemView = inflater.inflate(R.layout.item_custombutton, null);
 
             Button button = (Button) itemView.findViewById(R.id.button);
             button.setText(customButton.getTitle());
