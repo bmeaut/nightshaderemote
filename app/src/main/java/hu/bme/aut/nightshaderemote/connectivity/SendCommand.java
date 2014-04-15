@@ -12,12 +12,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
-import hu.bme.aut.nightshaderemote.NightshadeRemoteApplication;
+import hu.bme.aut.nightshaderemote.connectivity.commands.Command;
 
 /**
  * Calls the server with the URL constructed from the given command.
  * <p>
- * If {@link Command#isPost()} returns true, asks the command to write its data to the connection stream.
+ * If {@link hu.bme.aut.nightshaderemote.connectivity.commands.Command#isPost()} returns true, asks the command to write its data to the connection stream.
  *
  * @author Ákos Pap
  */
@@ -49,13 +49,14 @@ public class SendCommand extends AsyncTask<Command, Void, String> {
 
         Command command = params[0];
 
-        String result = "--- no result ---";
+        String result = "";
         try {
             url = new URL("http://" + ip + ":" + port + command.getPath());
 
             Log.d(TAG, "Sending command " + url.toString());
 
             urlConnection = (HttpURLConnection)url.openConnection();
+            urlConnection.setConnectTimeout(2000);
 
             if (command.isPost()) {
                 urlConnection.setRequestMethod("POST");
@@ -72,7 +73,8 @@ public class SendCommand extends AsyncTask<Command, Void, String> {
                 InputStream in = urlConnection.getInputStream();
                 result = readStream(in);
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                Log.w(TAG, "Got an IOException. The server is probably not available.");
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -88,8 +90,7 @@ public class SendCommand extends AsyncTask<Command, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         if (callback != null) {
-            //callback.onCommandSent(s);
-            NightshadeRemoteApplication.responseProcessor().process(s);
+            callback.onCommandSent(s);
         }
     }
 

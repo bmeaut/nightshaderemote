@@ -14,18 +14,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import hu.bme.aut.nightshaderemote.R;
-import hu.bme.aut.nightshaderemote.U;
-import hu.bme.aut.nightshaderemote.connectivity.Command;
-import hu.bme.aut.nightshaderemote.connectivity.FlagCommand;
-import hu.bme.aut.nightshaderemote.connectivity.ResponseProcessor;
-import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
+import hu.bme.aut.nightshaderemote.connectivity.CommandHandler;
+import hu.bme.aut.nightshaderemote.connectivity.commands.Command;
+import hu.bme.aut.nightshaderemote.connectivity.commands.FlagCommand;
+import hu.bme.aut.nightshaderemote.connectivity.commands.RefreshCommand;
 import hu.bme.aut.nightshaderemote.connectivity.models.JFlagState;
 import hu.bme.aut.nightshaderemote.connectivity.models.JResponse;
-import hu.bme.aut.nightshaderemote.connectivity.models.RefreshCommand;
 
 public class ButtonsFragment extends Fragment {
 
@@ -48,9 +45,9 @@ public class ButtonsFragment extends Fragment {
         responseReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (ResponseProcessor.INTENT_ACTION_RESPONSE_ARRIVED.equalsIgnoreCase(intent.getAction())) {
-                    if (intent.hasExtra(ResponseProcessor.KEY_RESPONSE)) {
-                        JResponse response = (JResponse) intent.getSerializableExtra(ResponseProcessor.KEY_RESPONSE);
+                if (CommandHandler.INTENT_ACTION_RESPONSE_ARRIVED.equalsIgnoreCase(intent.getAction())) {
+                    if (intent.hasExtra(CommandHandler.KEY_RESPONSE)) {
+                        JResponse response = (JResponse) intent.getSerializableExtra(CommandHandler.KEY_RESPONSE);
 
                         JFlagState fs = response.getFlagState();
 
@@ -85,7 +82,7 @@ public class ButtonsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(getActivity().getApplicationContext())
-                .registerReceiver(responseReceiver, ResponseProcessor.INTENT_FILTER_RESPONSE_ARRIVED);
+                .registerReceiver(responseReceiver, CommandHandler.INTENT_FILTER_RESPONSE_ARRIVED);
     }
 
     @Override
@@ -141,7 +138,7 @@ public class ButtonsFragment extends Fragment {
         }
     }
 
-    private SendCommand prepareSendCommand() {
+    /*private SendCommand prepareSendCommand() {
         // TODO shared prefs-ből!!!!
         return new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), new SendCommand.OnCommandSentListener() {
             @Override
@@ -149,7 +146,7 @@ public class ButtonsFragment extends Fragment {
                 Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 
     private class FlagButtonOnclickListener implements View.OnClickListener {
 
@@ -157,7 +154,8 @@ public class ButtonsFragment extends Fragment {
         public void onClick(View v) {
             if (v.getTag() != null && v.getTag() instanceof Command) {
                 Command c = ((Command) v.getTag());
-                prepareSendCommand().execute(c);
+                /*prepareSendCommand().execute(c);*/
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
 
                 Log.d(TAG, "Executing command: " + c.getPath());
             } else {

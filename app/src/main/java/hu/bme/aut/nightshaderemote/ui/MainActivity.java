@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.bme.aut.nightshaderemote.R;
-import hu.bme.aut.nightshaderemote.connectivity.ResponseProcessor;
+import hu.bme.aut.nightshaderemote.connectivity.CommandHandler;
 import hu.bme.aut.nightshaderemote.connectivity.models.JResponse;
 import hu.bme.aut.nightshaderemote.ui.custombuttons.CustomButtonsFragment;
 
@@ -57,19 +57,27 @@ public class MainActivity extends ActionBarActivity {
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (intent.hasExtra(ResponseProcessor.KEY_RESPONSE)) {
-                    JResponse response = ((JResponse) intent.getSerializableExtra(ResponseProcessor.KEY_RESPONSE));
+                if (intent.hasExtra(CommandHandler.KEY_RESPONSE)) {
+                    JResponse response = ((JResponse) intent.getSerializableExtra(CommandHandler.KEY_RESPONSE));
                     Toast.makeText(
                             context,
-                            String.format("Response arrived!\nText: %s\nConstLines: %s",
-                                    response.getResponse(),
-                                    response.getFlagState().isConstellationLines()
+                            String.format("Response arrived!\nText: %s",
+                                    response.getResponse()
                             ),
                             Toast.LENGTH_SHORT
                     ).show();
                 }
             }
-        }, ResponseProcessor.INTENT_FILTER_RESPONSE_ARRIVED);
+        }, CommandHandler.INTENT_FILTER_RESPONSE_ARRIVED);
+
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.hasExtra(CommandHandler.KEY_MESSAGE)) {
+                    Toast.makeText(context, intent.getStringExtra(CommandHandler.KEY_MESSAGE), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, CommandHandler.INTENT_FILTER_NO_RESPONSE);
     }
 
 

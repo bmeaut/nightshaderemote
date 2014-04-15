@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -30,10 +31,9 @@ import java.util.List;
 
 import hu.bme.aut.nightshaderemote.FileExtensionFilter;
 import hu.bme.aut.nightshaderemote.R;
-import hu.bme.aut.nightshaderemote.U;
-import hu.bme.aut.nightshaderemote.connectivity.Command;
-import hu.bme.aut.nightshaderemote.connectivity.ExecuteCommand;
-import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
+import hu.bme.aut.nightshaderemote.connectivity.CommandHandler;
+import hu.bme.aut.nightshaderemote.connectivity.commands.Command;
+import hu.bme.aut.nightshaderemote.connectivity.commands.ExecuteCommand;
 
 /**
  * Created by Marci on 2014.03.15..
@@ -80,12 +80,13 @@ public class CustomButtonsFragment extends Fragment implements ButtonDialogFragm
         String scriptContent = cubu.getScriptText();
         if (!TextUtils.isEmpty(scriptContent)) {
             Command c = new ExecuteCommand(scriptContent);
-            new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), new SendCommand.OnCommandSentListener() {
+            /*new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), new SendCommand.OnCommandSentListener() {
                 @Override
                 public void onCommandSent(String result) {
                     Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
                 }
-            }).execute(c);
+            }).execute(c);*/
+            LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
         }
     }
 

@@ -1,14 +1,15 @@
-package hu.bme.aut.nightshaderemote.connectivity;
+package hu.bme.aut.nightshaderemote.connectivity.commands;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Serializable;
 
 /**
  * Specifies the methods that every command has to implement.
  *
  * @author Ákos Pap
  */
-public interface Command {
+public interface Command extends Serializable {
 
     /**
      * Composes the URL part after the server address and port.

@@ -1,9 +1,7 @@
-package hu.bme.aut.nightshaderemote.connectivity.models;
+package hu.bme.aut.nightshaderemote.connectivity.commands;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
-import hu.bme.aut.nightshaderemote.connectivity.Command;
 
 /**
  * @author Ákos Pap

@@ -3,13 +3,13 @@ package hu.bme.aut.nightshaderemote.ui;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,9 +18,9 @@ import java.util.Arrays;
 import hu.bme.aut.nightshaderemote.FileExtensionFilter;
 import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.U;
-import hu.bme.aut.nightshaderemote.connectivity.Command;
-import hu.bme.aut.nightshaderemote.connectivity.RunCommand;
-import hu.bme.aut.nightshaderemote.connectivity.SendCommand;
+import hu.bme.aut.nightshaderemote.connectivity.CommandHandler;
+import hu.bme.aut.nightshaderemote.connectivity.commands.Command;
+import hu.bme.aut.nightshaderemote.connectivity.commands.RunCommand;
 
 /**
  * Created by Marci on 2014.03.01..
@@ -55,12 +55,13 @@ public class ScriptsFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String filename = adapter.getItem(position);
                 Command c = new RunCommand(filename);
-                new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), new SendCommand.OnCommandSentListener() {
+                /*new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), new SendCommand.OnCommandSentListener() {
                     @Override
                     public void onCommandSent(String result) {
                         Toast .makeText(ScriptsFragment.this.getActivity(), result, Toast.LENGTH_SHORT).show();
                     }
-                }).execute(c);
+                }).execute(c);*/
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
             }
         });
 

@@ -1,4 +1,4 @@
-package hu.bme.aut.nightshaderemote.connectivity;
+package hu.bme.aut.nightshaderemote.connectivity.commands;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;

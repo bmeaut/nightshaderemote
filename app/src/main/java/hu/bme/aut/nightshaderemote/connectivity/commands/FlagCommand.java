@@ -1,4 +1,4 @@
-package hu.bme.aut.nightshaderemote.connectivity;
+package hu.bme.aut.nightshaderemote.connectivity.commands;
 
 import java.io.OutputStream;
 
@@ -64,8 +64,8 @@ public class FlagCommand implements Command {
 
     /**
      * Constructs a command to set a flag.
-     * @param commandName The {@link hu.bme.aut.nightshaderemote.connectivity.FlagCommand.CommandName flag} to set.
-     * @param commandState The {@link hu.bme.aut.nightshaderemote.connectivity.FlagCommand.CommandState state} to set the flag to.
+     * @param commandName The {@link FlagCommand.CommandName flag} to set.
+     * @param commandState The {@link FlagCommand.CommandState state} to set the flag to.
      */
     public FlagCommand(CommandName commandName, CommandState commandState) {
         this.commandName = commandName;
