@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ELTEPlanetarium.iml" filepath="$PROJECT_DIR$/ELTEPlanetarium.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ELTEPlanetarium.iml" filepath="$PROJECT_DIR$/ELTEPlanetarium.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/elteplanetarium.iml" filepath="$PROJECT_DIR$/elteplanetarium.iml" />
     </modules>
