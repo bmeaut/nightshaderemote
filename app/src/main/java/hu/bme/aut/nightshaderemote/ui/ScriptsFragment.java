@@ -20,6 +20,7 @@ import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.U;
 import hu.bme.aut.nightshaderemote.connectivity.CommandHandler;
 import hu.bme.aut.nightshaderemote.connectivity.commands.Command;
+import hu.bme.aut.nightshaderemote.connectivity.commands.ControlCommand;
 import hu.bme.aut.nightshaderemote.connectivity.commands.RunCommand;
 
 /**
@@ -30,6 +31,8 @@ public class ScriptsFragment extends Fragment {
     public static final String TAG = "ScriptFragment";
     private ListView mScriptList;
     private ArrayAdapter<String> adapter;
+
+    protected View root;
 
     public static ScriptsFragment newInstance() {
         ScriptsFragment fragment = new ScriptsFragment();
@@ -44,9 +47,26 @@ public class ScriptsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_scripts, container, false);
+        root = inflater.inflate(R.layout.fragment_scripts, container, false);
 
-        mScriptList = (ListView) v.findViewById(R.id.scriptList);
+        root.findViewById(R.id.scriptBuPlay).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Command c = new ControlCommand(ControlCommand.CommandName.PLAY_PAUSE);
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
+            }
+        });
+
+        root.findViewById(R.id.scriptBuPlay).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Command c = new ControlCommand(ControlCommand.CommandName.STOP);
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
+                return true;
+            }
+        });
+
+        mScriptList = (ListView) root.findViewById(R.id.scriptList);
         adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, new ArrayList<String>());
         mScriptList.setAdapter(adapter);
 
@@ -67,7 +87,7 @@ public class ScriptsFragment extends Fragment {
 
         refreshScriptList();
 
-        return v;
+        return root;
     }
 
     private void refreshScriptList() {
