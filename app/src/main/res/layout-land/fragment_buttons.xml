@@ -22,14 +22,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_c"
-                android:id="@+id/textView_c" />
+                android:text="@string/label_constlines"
+                android:id="@+id/textView_constlines" />
 
             <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_c"
-                android:background="@drawable/button_c"
+                android:id="@+id/toggleButton_constlines"
+                android:background="@drawable/button_constlines"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "
@@ -49,14 +49,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_v"
-                android:id="@+id/textView_v" />
+                android:text="@string/label_constnames"
+                android:id="@+id/textView_constnames" />
 
             <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_v"
-                android:background="@drawable/button_v"
+                android:id="@+id/toggleButton_constnames"
+                android:background="@drawable/button_constnames"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "
@@ -75,14 +75,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_r"
-                android:id="@+id/textView_r" />
+                android:text="@string/constart"
+                android:id="@+id/textView_constart" />
 
             <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_r"
-                android:background="@drawable/button_r"
+                android:id="@+id/toggleButton_constart"
+                android:background="@drawable/button_constart"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "
@@ -100,14 +100,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_z"
-                android:id="@+id/textView_z" />
+                android:text="@string/label_azigrid"
+                android:id="@+id/textView_azigrid" />
 
             <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_z"
-                android:background="@drawable/button_z"
+                android:id="@+id/toggleButton_azigrid"
+                android:background="@drawable/button_azigrid"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "
@@ -135,14 +135,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_e"
+                android:text="@string/label_equagrid"
                 android:id="@+id/textView_e" />
 
             <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_e"
-                android:background="@drawable/button_e"
+                android:id="@+id/toggleButton_equagrid"
+                android:background="@drawable/button_equagrid"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "
@@ -161,14 +161,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_g"
-                android:id="@+id/textView_g" />
+                android:text="@string/label_ground"
+                android:id="@+id/textView_ground" />
 
             <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_g"
-                android:background="@drawable/button_g"
+                android:id="@+id/toggleButton_ground"
+                android:background="@drawable/button_ground"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "
@@ -186,14 +186,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_q"
-                android:id="@+id/textView_q" />
+                android:text="@string/cardinalpoints"
+                android:id="@+id/textView_cardinalpoints" />
 
             <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_q"
-                android:background="@drawable/button_q"
+                android:id="@+id/toggleButton_cardinalpoints"
+                android:background="@drawable/button_cardinalpoints"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "
@@ -212,14 +212,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_a"
-                android:id="@+id/textView_a" />
+                android:text="@string/label_atmosphere"
+                android:id="@+id/textView_atmosphere" />
 
             <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_a"
-                android:background="@drawable/button_a"
+                android:id="@+id/toggleButton_atmosphere"
+                android:background="@drawable/button_atmosphere"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "
@@ -232,7 +232,8 @@
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tableRow2">
+        android:id="@+id/tableRow2"
+        android:paddingBottom="5dp">
 
         <LinearLayout
             android:orientation="vertical"
@@ -246,14 +247,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_p"
-                android:id="@+id/textView_p" />
+                android:text="@string/label_planetnames"
+                android:id="@+id/textView_planetnames" />
 
             <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_p"
-                android:background="@drawable/button_p"
+                android:id="@+id/toggleButton_planetnames"
+                android:background="@drawable/button_planetnames"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "
@@ -271,14 +272,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_n"
-                android:id="@+id/textView_n" />
+                android:text="@string/label_nebulanames"
+                android:id="@+id/textView_nebulanames" />
 
             <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_n"
-                android:background="@drawable/button_n"
+                android:id="@+id/toggleButton_nebulanames"
+                android:background="@drawable/button_nebulanames"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "
@@ -297,14 +298,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_enter"
-                android:id="@+id/textView_enter" />
+                android:text="@string/label_coordinatesys"
+                android:id="@+id/textView_coordinatesys" />
 
             <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_enter"
-                android:background="@drawable/button_enter"
+                android:id="@+id/toggleButton_coordinatesys"
+                android:background="@drawable/button_coordinatesys"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "
@@ -323,14 +324,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_space"
-                android:id="@+id/textView_space" />
+                android:text="@string/label_constbound"
+                android:id="@+id/textView_constbound" />
 
             <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_space"
-                android:background="@drawable/button_space"
+                android:id="@+id/toggleButton_track"
+                android:background="@drawable/button_constbound"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "

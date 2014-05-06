@@ -6,27 +6,27 @@
         android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_j"
+        android:background="@drawable/button_rewind"
         android:clickable="false" />
 
     <ImageButton
         android:id="@+id/scriptBuPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_k"/>
+        android:background="@drawable/button_play"/>
 
     <ImageButton
         android:id="@+id/imageButton3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_l"
+        android:background="@drawable/button_fastforward"
         android:clickable="false" />
 
     <ImageButton
         android:id="@+id/imageButton4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_8"
+        android:background="@drawable/button_currenttime"
         android:clickable="false" />
 
 </merge>

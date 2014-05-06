@@ -2,18 +2,19 @@
 <resources>
 
     <string name="app_name">Nightshade Remote</string>
-    <string name="label_c">Const. lines</string>
-    <string name="label_v">Const. names</string>
-    <string name="label_r">Const. artwork</string>
-    <string name="label_z">Azimuthal grid</string>
-    <string name="label_e">Equatorial grid</string>
-    <string name="label_g">Toggle ground</string>
-    <string name="label_q">Cardinal points</string>
-    <string name="label_a">Atmosphere</string>
-    <string name="label_p">Planet names</string>
-    <string name="label_n">Nebula names</string>
-    <string name="label_enter">Coordinate sys.</string>
-    <string name="label_space">Track</string>
+    <string name="label_constlines">Const. lines</string>
+    <string name="label_constnames">Const. names</string>
+    <string name="constart">Const. artwork</string>
+    <string name="label_azigrid">Azimuthal grid</string>
+    <string name="label_equagrid">Equatorial grid</string>
+    <string name="label_ground">Toggle ground</string>
+    <string name="cardinalpoints">Cardinal points</string>
+    <string name="label_atmosphere">Atmosphere</string>
+    <string name="label_planetnames">Planet names</string>
+    <string name="label_nebulanames">Nebula names</string>
+    <string name="label_coordinatesys">Coordinate sys.</string>
+    <string name="label_track">Track</string>
+    <string name="label_constbound">Const. bound.</string>
     <string name="title_activity_main">Nightshade Remote</string>
     <string name="delete_string">Delete</string>
 

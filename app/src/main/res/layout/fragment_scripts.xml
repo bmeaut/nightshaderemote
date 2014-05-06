@@ -21,7 +21,8 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:paddingBottom="5dp">
 
         <include layout="@layout/script_buttonbar_include" />
 
