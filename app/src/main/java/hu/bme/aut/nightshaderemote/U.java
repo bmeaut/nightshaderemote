@@ -13,6 +13,7 @@ public class U {
         public static final String APP_FOLDER = "NightshadeRemote";
         public static final String SCRIPTS_FOLDER = "scripts";
         public static final String CUSTOM_BUTTONS_FOLDER = "custom_buttons";
+        public static final String NOTES_FOLDER = "notes";
     }
 
     protected static Context context;

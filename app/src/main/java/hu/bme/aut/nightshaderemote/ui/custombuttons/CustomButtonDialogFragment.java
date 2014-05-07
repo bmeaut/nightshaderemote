@@ -19,7 +19,7 @@ import hu.bme.aut.nightshaderemote.R;
 /**
  * Created by Marci on 2014.03.20..
  */
-public class ButtonDialogFragment extends DialogFragment {
+public class CustomButtonDialogFragment extends DialogFragment {
     public static final String TAG = "ButtonDialogFragment";
 
     private EditText fileNameText;
@@ -27,6 +27,11 @@ public class ButtonDialogFragment extends DialogFragment {
     private String initialFileName;
     private String initialScript;
     private IButtonAddedListener listener;
+    private String dialogMode;
+
+    public CustomButtonDialogFragment(String mode){
+        dialogMode = mode;
+    }
 
 
     @Override
@@ -48,7 +53,17 @@ public class ButtonDialogFragment extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.dialog_fragment_newbutton, container, false);
+        View root = inflater.inflate(R.layout.dialog_fragment_custombutton, container, false);
+
+        //TODO Nem tudom hogy a cím kiírása így elég szép megoldás-e, most ezt sikerült kitalálni :)
+        switch (dialogMode) {
+            case "NEW":
+                getDialog().setTitle("New Button");
+                break;
+            case "EDIT":
+                getDialog().setTitle("Edit Button");
+                break;
+        }
 
         fileNameText = (EditText) root.findViewById(R.id.filename);
         scriptText = (EditText) root.findViewById(R.id.script);

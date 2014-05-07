@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/constart"
+                android:text="@string/label_constart"
                 android:id="@+id/textView_constart" />
 
             <ToggleButton
@@ -195,7 +195,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/cardinalpoints"
+                android:text="@string/label_cardinalpoints"
                 android:id="@+id/textView_cardinalpoints" />
 
             <ToggleButton
