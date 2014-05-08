@@ -117,6 +117,7 @@ public class MainActivity extends ActionBarActivity {
             fragmentList.add(ButtonsFragment.newInstance());
             fragmentList.add(ScriptsFragment.newInstance());
             fragmentList.add(CustomButtonsFragment.newInstance());
+            fragmentList.add(ObjectFragment.newInstance());
         }
 
         @Override
