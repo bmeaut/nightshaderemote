@@ -27,11 +27,6 @@ public class CustomButtonDialogFragment extends DialogFragment {
     private String initialFileName;
     private String initialScript;
     private IButtonAddedListener listener;
-    private String dialogMode;
-
-    public CustomButtonDialogFragment(String mode){
-        dialogMode = mode;
-    }
 
 
     @Override
@@ -56,7 +51,7 @@ public class CustomButtonDialogFragment extends DialogFragment {
         View root = inflater.inflate(R.layout.dialog_fragment_custombutton, container, false);
 
         //TODO Nem tudom hogy a cím kiírása így elég szép megoldás-e, most ezt sikerült kitalálni :)
-        switch (dialogMode) {
+        switch (getArguments().getString("Mode")) {
             case "NEW":
                 getDialog().setTitle("New Button");
                 break;
@@ -73,7 +68,7 @@ public class CustomButtonDialogFragment extends DialogFragment {
         initialFileName = "";
         initialScript = "";
 
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             if (getArguments().containsKey("Title")) {
                 initialFileName = getArguments().getString("Title");
             }

@@ -1,6 +1,5 @@
 package hu.bme.aut.nightshaderemote.ui.notes;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -9,9 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -29,6 +35,8 @@ public class NoteListFragment extends Fragment {
     private ArrayAdapter<String> adapter;
 
     protected View root;
+    File txtFile;
+    EditText noteText;
 
     public static NoteListFragment newInstance() {
         NoteListFragment fragment = new NoteListFragment();
@@ -44,18 +52,31 @@ public class NoteListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_notelist, container, false);
 
-        mNoteList = (ListView) root.findViewById(R.id.noteListView);
+        Spinner spinner = (Spinner) root.findViewById(R.id.noteSelector);
         adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, new ArrayList<String>());
-        mNoteList.setAdapter(adapter);
+        spinner.setAdapter(adapter);
+        noteText =((EditText) root.findViewById(R.id.noteText));
+        Button save = ((Button) root.findViewById(R.id.save));
 
-        mNoteList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String filename = adapter.getItem(position)+".txt";
+            public void onClick(View view) {
+                saveFile(txtFile,noteText.getText().toString());
+            }
+        });
 
-                Intent intent = new Intent(getActivity(), NoteActivity.class);
-                intent.putExtra("NOTE_FILE_NAME", filename);
-                startActivity(intent);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+
+                String filename = adapter.getItem(position)+".txt";
+                txtFile = openTXTFile(filename);
+                String text = readFile(txtFile);
+                noteText.setText(text);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
@@ -87,5 +108,69 @@ public class NoteListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         refreshNoteList();
+    }
+
+    /**
+     * Kapott fájlnév alapján megnyitja azt, a "NightshadeRemote/notes" mappából
+     * @param sFileName A megnyitandó fájl neve
+     * @return Visszatér a kívánt File típusú objektummal
+     */
+    public File openTXTFile(String sFileName) {
+        final String APP_FOLDER = "NightshadeRemote";
+        final String NOTES_FOLDER = "notes";
+
+        File sd = Environment.getExternalStorageDirectory();
+        File searchDir = new File(sd, new File(APP_FOLDER, NOTES_FOLDER).getPath());
+
+        File mFile = new File(searchDir, sFileName);
+
+        return mFile;
+    }
+
+    /**
+     * Beolvassa a kapot File tartalmát
+     * @param file File típusú objkektum, amiből olvasni szereténk
+     * @return Visszatér egy Stringgel, ami a File tartalmát hordozza
+     */
+    public String readFile(File file){
+
+        StringBuilder text = new StringBuilder();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                text.append(line);
+                text.append('\n');
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return text.toString();
+    }
+
+    /**
+     * Felülírja a kívánt fájlt
+     * @param file A File amit felül szeretnénk írni
+     * @param text A File Új tartalma
+     */
+    public void saveFile (File file, String text){
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(file);
+            writer.append(text);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (writer != null)
+                    writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

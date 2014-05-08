@@ -159,7 +159,10 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
         switch (item.getItemId()) {
             case R.id.addnewbutton:
                 //a new button gomb megnyomására létrejön egy dialódus fragment
-                CustomButtonDialogFragment addNewButtonDialog = new CustomButtonDialogFragment("NEW");
+                CustomButtonDialogFragment addNewButtonDialog = new CustomButtonDialogFragment();
+                Bundle b = new Bundle();
+                b.putString("Mode", "NEW");
+                addNewButtonDialog.setArguments(b);
                 addNewButtonDialog.setTargetFragment(this, 0);
                 FragmentManager fm = getFragmentManager();
                 addNewButtonDialog.show(fm, CustomButtonDialogFragment.TAG);
@@ -194,10 +197,11 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
 
             case R.id.edit_item:
                 //Toast.makeText(getActivity(),"Edit", Toast.LENGTH_SHORT).show(); //TODO teszteléshez
-                CustomButtonDialogFragment editButtonDialog = new CustomButtonDialogFragment("EDIT");
+                CustomButtonDialogFragment editButtonDialog = new CustomButtonDialogFragment();
                 Bundle b = new Bundle();
                 b.putString("Title", clickedButton.getTitle());
                 b.putString("Script", clickedButton.getScriptText());
+                b.putString("Mode", "EDIT");
                 editButtonDialog.setArguments(b);
                 editButtonDialog.setTargetFragment(this, 0);
                 FragmentManager fm = getFragmentManager();
