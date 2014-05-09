@@ -14,11 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.connectivity.CommandHandler;
+import hu.bme.aut.nightshaderemote.connectivity.commands.Command;
+import hu.bme.aut.nightshaderemote.connectivity.commands.ControlCommand;
 import hu.bme.aut.nightshaderemote.connectivity.commands.FetchCommand;
 import hu.bme.aut.nightshaderemote.connectivity.commands.ParametrizedFetchCommand;
 import hu.bme.aut.nightshaderemote.connectivity.models.JObjectImage;
@@ -40,6 +43,8 @@ public class ObjectFragment extends Fragment {
     protected ImageView objectImageIv;
     protected TextView objectNameTv;
 
+    protected SeekBar zoomBar;
+
 
     protected BroadcastReceiver objectImageReceiver;
 
@@ -59,6 +64,8 @@ public class ObjectFragment extends Fragment {
         freeTextIdEt = (EditText) root.findViewById(R.id.objectIdentifier);
         objectImageIv = (ImageView) root.findViewById(R.id.objectImage);
         objectNameTv = (TextView) root.findViewById(R.id.objectName);
+
+        zoomBar = (SeekBar) root.findViewById(R.id.zoomBar);
 
         Button buTrack = (Button) root.findViewById(R.id.buTrack);
         buTrack.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +102,26 @@ public class ObjectFragment extends Fragment {
                 }
             }
         };
+
+        root.findViewById(R.id.buZoomIn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Command c = new ControlCommand(ControlCommand.CommandName.ZOOM_IN);
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
+
+                zoomBar.incrementProgressBy(1);
+            }
+        });
+
+        root.findViewById(R.id.buZoomOut).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Command c = new ControlCommand(ControlCommand.CommandName.ZOOM_OUT);
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
+
+                zoomBar.incrementProgressBy(-1);
+            }
+        });
 
         return root;
     }

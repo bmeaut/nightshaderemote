@@ -10,7 +10,11 @@ public class ControlCommand implements Command {
 
     public static enum CommandName {
         PLAY_PAUSE("scriptPlayPause"),
-        STOP("scriptStop");
+        STOP("scriptStop"),
+
+        ZOOM_IN("zoom/in"),
+        ZOOM_OUT("zoom/out"),
+        ;
 
         private String uriPart;
 

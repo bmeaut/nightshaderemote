@@ -126,14 +126,14 @@
             <hu.bme.aut.nightshaderemote.ui.VerticalSeekBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/seekBar"
+                android:id="@+id/zoomBar"
                 android:indeterminateOnly="false"
                 android:indeterminate="false"
-                android:max="100"
+                android:max="10"
                 android:padding="10dp"
                 android:layout_weight="1"
                 android:layout_gravity="center_horizontal"
-                />
+                android:clickable="false"/>
 
             <Button
                 style="?android:attr/buttonStyleSmall"
