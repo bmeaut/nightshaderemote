@@ -17,6 +17,9 @@ public class JResponse implements Serializable {
     @JsonProperty(value = "scriptState")
     private JScriptState ScriptState;
 
+    @JsonProperty(value = "objectImage")
+    private JObjectImage objectImage;
+
     public String getResponse() {
         return response;
     }
@@ -39,5 +42,13 @@ public class JResponse implements Serializable {
 
     public void setScriptState(JScriptState scriptState) {
         ScriptState = scriptState;
+    }
+
+    public JObjectImage getObjectImage() {
+        return objectImage;
+    }
+
+    public void setObjectImage(JObjectImage objectImage) {
+        this.objectImage = objectImage;
     }
 }

@@ -92,14 +92,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Medium Text"
-                android:id="@+id/textView2"
+                android:text="Nothing selected"
+                android:id="@+id/objectName"
                 android:layout_gravity="center_horizontal"/>
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/imageView"
+                android:id="@+id/objectImage"
                 android:src="@drawable/colorful_galaxy_inset_130404"/>
         </LinearLayout>
 
