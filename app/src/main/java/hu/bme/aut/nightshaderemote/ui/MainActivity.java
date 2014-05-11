@@ -1,5 +1,6 @@
 package hu.bme.aut.nightshaderemote.ui;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -54,6 +56,7 @@ public class MainActivity extends ActionBarActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOnPageChangeListener(mSectionsPagerAdapter);
 
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(new BroadcastReceiver() {
             @Override
@@ -113,7 +116,7 @@ public class MainActivity extends ActionBarActivity {
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
         private List<Fragment> fragmentList;
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -137,5 +140,21 @@ public class MainActivity extends ActionBarActivity {
             // Show 2 total pages.
             return fragmentList.size();
         }
+
+        @Override
+        public void onPageSelected(int position) {
+            final InputMethodManager inputMethodManager =
+                    (InputMethodManager) MainActivity.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+
+            if (fragmentList.get(position).getClass() != ObjectFragment.class) {
+                inputMethodManager.hideSoftInputFromWindow(MainActivity.this.mViewPager.getApplicationWindowToken(), 0);
+            }
+        }
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+        @Override
+        public void onPageScrollStateChanged(int state) {}
     }
 }
