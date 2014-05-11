@@ -17,6 +17,8 @@ public class ControlCommand implements Command {
 
         SELECT("select"),
         DESELECT("deselect"),
+
+        RESET("reset"),
         ;
 
         private String uriPart;

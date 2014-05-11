@@ -20,7 +20,6 @@ import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.connectivity.CommandHandler;
 import hu.bme.aut.nightshaderemote.connectivity.commands.Command;
 import hu.bme.aut.nightshaderemote.connectivity.commands.FlagCommand;
-import hu.bme.aut.nightshaderemote.connectivity.commands.RefreshCommand;
 import hu.bme.aut.nightshaderemote.connectivity.models.JFlagState;
 import hu.bme.aut.nightshaderemote.connectivity.models.JResponse;
 
@@ -107,7 +106,7 @@ public class ButtonsFragment extends Fragment {
 
         getFlagButton(R.id.toggleButton_nebulanames).setChecked(fs.isNebulaLabels());
         getFlagButton(R.id.toggleButton_coordinatesys).setChecked(fs.isMount());
-        //getFlagButton(R.id.toggleButton_space).setChecked(fs.isConstellationLines());
+        getFlagButton(R.id.toggleButton_constbound).setChecked(fs.isConstellationBoundaries());
     }
 
     protected ToggleButton getFlagButton(int id) {
@@ -120,7 +119,7 @@ public class ButtonsFragment extends Fragment {
         root.findViewById(R.id.toggleButton_constart).setTag(new FlagCommand(FlagCommand.CommandName.CONSTELLATION_ART, FlagCommand.CommandState.TOGGLE));
 
         root.findViewById(R.id.toggleButton_azigrid).setTag(new FlagCommand(FlagCommand.CommandName.AZIMUTHAL_GRID, FlagCommand.CommandState.TOGGLE));
-        root.findViewById(R.id.toggleButton_equagrid).setTag(new FlagCommand(FlagCommand.CommandName.EQUTORIAL_GRID, FlagCommand.CommandState.TOGGLE));
+        root.findViewById(R.id.toggleButton_equagrid).setTag(new FlagCommand(FlagCommand.CommandName.EQUATORIAL_GRID, FlagCommand.CommandState.TOGGLE));
         root.findViewById(R.id.toggleButton_ground).setTag(new FlagCommand(FlagCommand.CommandName.GROUND, FlagCommand.CommandState.TOGGLE));
 
         root.findViewById(R.id.toggleButton_cardinalpoints).setTag(new FlagCommand(FlagCommand.CommandName.CARDINAL_POINTS, FlagCommand.CommandState.TOGGLE));
@@ -129,7 +128,7 @@ public class ButtonsFragment extends Fragment {
 
         root.findViewById(R.id.toggleButton_nebulanames).setTag(new FlagCommand(FlagCommand.CommandName.NEBULA_LABELS, FlagCommand.CommandState.TOGGLE));
         root.findViewById(R.id.toggleButton_coordinatesys).setTag(new FlagCommand(FlagCommand.CommandName.MOUNT, FlagCommand.CommandState.TOGGLE));
-        root.findViewById(R.id.toggleButton_track).setTag(new RefreshCommand()); // TODO ideiglenes, menübe kirakni !!!
+        root.findViewById(R.id.toggleButton_constbound).setTag(new FlagCommand(FlagCommand.CommandName.CONSTELLATION_BOUNDARIES, FlagCommand.CommandState.TOGGLE));
 
         for (View v : root.getTouchables()) {
             if (v instanceof ToggleButton) {
@@ -137,16 +136,6 @@ public class ButtonsFragment extends Fragment {
             }
         }
     }
-
-    /*private SendCommand prepareSendCommand() {
-        // TODO shared prefs-ből!!!!
-        return new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), new SendCommand.OnCommandSentListener() {
-            @Override
-            public void onCommandSent(String result) {
-                Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }*/
 
     private class FlagButtonOnclickListener implements View.OnClickListener {
 

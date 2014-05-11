@@ -10,6 +10,7 @@ public class JFlagState implements Serializable {
     private boolean constellationLines;
     private boolean constellationLabels;
     private boolean constellationArt;
+    private boolean constellationBoundaries;
     private boolean azimuthalGrid;
     private boolean equatorialGrid;
     private boolean ground;
@@ -41,6 +42,14 @@ public class JFlagState implements Serializable {
 
     public void setConstellationArt(boolean constellationArt) {
         this.constellationArt = constellationArt;
+    }
+
+    public boolean isConstellationBoundaries() {
+        return constellationBoundaries;
+    }
+
+    public void setConstellationBoundaries(boolean constellationBoundaries) {
+        this.constellationBoundaries = constellationBoundaries;
     }
 
     public boolean isAzimuthalGrid() {
