@@ -27,4 +27,13 @@
         <item>HP</item>
     </string-array>
 
+    <string-array name="object_types">
+        <item>hp</item>
+        <item>star</item>
+        <item>planet</item>
+        <item>nebula</item>
+        <item>constellation</item>
+        <item>constellation_star</item>
+    </string-array>
+
 </resources>

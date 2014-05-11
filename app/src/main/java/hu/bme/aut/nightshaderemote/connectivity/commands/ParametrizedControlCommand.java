@@ -10,14 +10,15 @@ import java.util.List;
 /**
  * @author Ákos Pap
  */
-public class ParametrizedFetchCommand extends FetchCommand {
+public class ParametrizedControlCommand extends ControlCommand {
 
-    public static final String PARAM_OBJECT_ID = "objectId";
+    public static final String PARAM_OBJECT_TYPE = "type";
+    public static final String PARAM_IDENTIFIER = "id";
 
     protected List<NameValuePair> parameters;
 
-    public ParametrizedFetchCommand(FetchTarget target) {
-        super(target);
+    public ParametrizedControlCommand(CommandName commandName) {
+        super(commandName);
         parameters = new ArrayList<>();
     }
 

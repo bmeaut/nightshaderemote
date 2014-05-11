@@ -14,6 +14,9 @@ public class ControlCommand implements Command {
 
         ZOOM_IN("zoom/in"),
         ZOOM_OUT("zoom/out"),
+
+        SELECT("select"),
+        DESELECT("deselect"),
         ;
 
         private String uriPart;

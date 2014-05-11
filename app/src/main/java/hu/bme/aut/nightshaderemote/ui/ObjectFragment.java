@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -23,6 +22,7 @@ import hu.bme.aut.nightshaderemote.connectivity.CommandHandler;
 import hu.bme.aut.nightshaderemote.connectivity.commands.Command;
 import hu.bme.aut.nightshaderemote.connectivity.commands.ControlCommand;
 import hu.bme.aut.nightshaderemote.connectivity.commands.FetchCommand;
+import hu.bme.aut.nightshaderemote.connectivity.commands.ParametrizedControlCommand;
 import hu.bme.aut.nightshaderemote.connectivity.commands.ParametrizedFetchCommand;
 import hu.bme.aut.nightshaderemote.connectivity.models.JObjectImage;
 import hu.bme.aut.nightshaderemote.connectivity.models.JResponse;
@@ -38,6 +38,10 @@ public class ObjectFragment extends Fragment {
 
     protected Spinner catalogSpinner;
     protected EditText cataloggedIdEt;
+
+    protected Spinner objectTypeSp;
+    protected EditText objectIdentifierEt;
+
     protected EditText freeTextIdEt;
 
     protected ImageView objectImageIv;
@@ -64,18 +68,19 @@ public class ObjectFragment extends Fragment {
         freeTextIdEt = (EditText) root.findViewById(R.id.objectIdentifier);
         objectImageIv = (ImageView) root.findViewById(R.id.objectImage);
         objectNameTv = (TextView) root.findViewById(R.id.objectName);
+        objectTypeSp = (Spinner) root.findViewById(R.id.objectType);
+        objectIdentifierEt = (EditText) root.findViewById(R.id.objectIdentifier);
 
         zoomBar = (SeekBar) root.findViewById(R.id.zoomBar);
 
-        Button buTrack = (Button) root.findViewById(R.id.buTrack);
-        buTrack.setOnClickListener(new View.OnClickListener() {
+        root.findViewById(R.id.buFind).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String objectId = getObjectId();
 
                 ParametrizedFetchCommand c = new ParametrizedFetchCommand(FetchCommand.FetchTarget.OBJECT_IMAGE);
-                c.addParameter("objectId", objectId);
+                c.addParameter(ParametrizedFetchCommand.PARAM_OBJECT_ID, objectId);
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
             }
         });
@@ -120,6 +125,27 @@ public class ObjectFragment extends Fragment {
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
 
                 zoomBar.incrementProgressBy(-1);
+            }
+        });
+
+        root.findViewById(R.id.buTrack).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String type = objectTypeSp.getSelectedItem().toString();
+                String identifier = objectIdentifierEt.getText().toString();
+
+                ParametrizedControlCommand c = new ParametrizedControlCommand(ControlCommand.CommandName.SELECT);
+                c.addParameter(ParametrizedControlCommand.PARAM_OBJECT_TYPE, type);
+                c.addParameter(ParametrizedControlCommand.PARAM_IDENTIFIER, identifier);
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
+            }
+        });
+
+        root.findViewById(R.id.buUnselect).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ControlCommand c = new ControlCommand(ControlCommand.CommandName.DESELECT);
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
             }
         });
 
