@@ -100,14 +100,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_azigrid"
-                android:id="@+id/textView_azigrid" />
+                android:text="@string/label_constbound"
+                android:id="@+id/textView_constbound" />
 
             <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_azigrid"
-                android:background="@drawable/button_azigrid"
+                android:id="@+id/toggleButton_constbound"
+                android:background="@drawable/button_constbound"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "
@@ -122,6 +122,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tableRow">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:weightSum="1"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/label_azigrid"
+                android:id="@+id/textView_azigrid" />
+
+            <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/toggleButton_azigrid"
+                android:background="@drawable/button_azigrid"
+                android:singleLine="false"
+                android:visibility="visible"
+                android:textOff=" "
+                android:textOn=" "/>
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
@@ -154,7 +179,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:weightSum="1"
-            android:id="@+id/linearLayout4"
             android:gravity="center" >
 
             <TextView
@@ -169,31 +193,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/toggleButton_ground"
                 android:background="@drawable/button_ground"
-                android:singleLine="false"
-                android:visibility="visible"
-                android:textOff=" "
-                android:textOn=" "/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:weightSum="1"
-            android:gravity="center" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_cardinalpoints"
-                android:id="@+id/textView_cardinalpoints" />
-
-            <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_cardinalpoints"
-                android:background="@drawable/button_cardinalpoints"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "
@@ -317,26 +316,24 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:weightSum="1"
-            android:id="@+id/linearLayout8"
             android:gravity="center" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_constbound"
-                android:id="@+id/textView_constbound" />
+                android:text="@string/label_cardinalpoints"
+                android:id="@+id/textView_cardinalpoints" />
 
             <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_track"
-                android:background="@drawable/button_constbound"
+                android:id="@+id/toggleButton_cardinalpoints"
+                android:background="@drawable/button_cardinalpoints"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "
                 android:textOn=" "/>
-
         </LinearLayout>
     </TableRow>
 

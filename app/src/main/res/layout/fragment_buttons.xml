@@ -110,6 +110,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/label_constbound"
+                android:id="@+id/textView_constbound" />
+
+            <ToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/toggleButton_constbound"
+                android:background="@drawable/button_constbound"
+                android:singleLine="false"
+                android:visibility="visible"
+                android:textOff=" "
+                android:textOn=" " />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:weightSum="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/label_azigrid"
                 android:id="@+id/textView_azigrid" />
 
@@ -144,32 +169,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/toggleButton_equagrid"
                 android:background="@drawable/button_equagrid"
-                android:singleLine="false"
-                android:visibility="visible"
-                android:textOff=" "
-                android:textOn=" " />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:weightSum="1"
-            android:id="@+id/linearLayout4"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_ground"
-                android:id="@+id/textView_ground" />
-
-            <ToggleButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_ground"
-                android:background="@drawable/button_ground"
                 android:singleLine="false"
                 android:visibility="visible"
                 android:textOff=" "
@@ -214,6 +213,32 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:weightSum="1"
+            android:id="@+id/linearLayout4"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/label_ground"
+                android:id="@+id/textView_ground" />
+
+            <ToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/toggleButton_ground"
+                android:background="@drawable/button_ground"
+                android:singleLine="false"
+                android:visibility="visible"
+                android:textOff=" "
+                android:textOn=" " />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:weightSum="1"
             android:id="@+id/linearLayout5"
             android:gravity="center">
 
@@ -234,13 +259,20 @@
                 android:textOff=" "
                 android:textOn=" " />
         </LinearLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tableRow3">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:weightSum="1"
-            android:id="@+id/linearLayout6"
             android:gravity="center">
 
             <TextView
@@ -260,14 +292,6 @@
                 android:textOff=" "
                 android:textOn=" " />
         </LinearLayout>
-    </TableRow>
-
-    <TableRow
-        android:layout_weight="1"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tableRow3">
 
         <LinearLayout
             android:orientation="vertical"
@@ -318,33 +342,6 @@
                 android:visibility="visible"
                 android:textOff=" "
                 android:textOn=" " />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:weightSum="1"
-            android:id="@+id/linearLayout8"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_constbound"
-                android:id="@+id/textView_constbound" />
-
-            <ToggleButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/toggleButton_track"
-                android:background="@drawable/button_constbound"
-                android:singleLine="false"
-                android:visibility="visible"
-                android:textOff=" "
-                android:textOn=" " />
-
         </LinearLayout>
     </TableRow>
 
