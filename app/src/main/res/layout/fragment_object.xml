@@ -40,7 +40,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Selection"/>
+            android:text="@string/objects_selection_label"/>
 
         <Spinner
             android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Find"
+            android:text="@string/object_find_label"
             android:id="@+id/buFind"
             android:layout_weight="1"
             android:layout_marginRight="20dp"/>
@@ -95,7 +95,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select/track"
+            android:text="@string/object_select_label"
             android:id="@+id/buTrack"
             android:layout_weight="1"
             android:layout_marginLeft="20dp"/>
@@ -110,7 +110,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1">
 
@@ -118,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Nothing selected"
+                android:text="@string/object_nothing_selected"
                 android:id="@+id/objectName"
                 android:layout_gravity="center_horizontal"/>
 
@@ -126,18 +126,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/objectImage"
-                android:src="@drawable/colorful_galaxy_inset_130404"/>
+                android:src="@drawable/not_found"/>
         </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="false"
             android:layout_marginLeft="0dp"
-            android:layout_alignParentTop="true"
             android:layout_marginTop="0dp"
-            android:layout_alignParentRight="true"
             android:gravity="right"
             android:layout_gravity="right">
 
@@ -151,7 +148,7 @@
 
             <hu.bme.aut.nightshaderemote.ui.VerticalSeekBar
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:id="@+id/zoomBar"
                 android:indeterminateOnly="false"
                 android:indeterminate="false"
@@ -175,7 +172,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Unselect object"
+        android:text="@string/object_unselect_label"
         android:id="@+id/buUnselect"
         android:layout_gravity="center_horizontal"/>
 

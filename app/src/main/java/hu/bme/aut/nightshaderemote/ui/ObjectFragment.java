@@ -72,6 +72,8 @@ public class ObjectFragment extends Fragment {
         objectIdentifierEt = (EditText) root.findViewById(R.id.objectIdentifier);
 
         zoomBar = (SeekBar) root.findViewById(R.id.zoomBar);
+        zoomBar.setEnabled(false);
+        zoomBar.setThumb(getResources().getDrawable(android.R.drawable.ic_menu_search));
 
         root.findViewById(R.id.buFind).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +148,7 @@ public class ObjectFragment extends Fragment {
             public void onClick(View v) {
                 ControlCommand c = new ControlCommand(ControlCommand.CommandName.DESELECT);
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
+                objectNameTv.setText(R.string.object_nothing_selected);
             }
         });
 

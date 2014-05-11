@@ -35,6 +35,11 @@
 
     <string name="objects_from_catalog_label">From catalog</string>
     <string name="objects_free_text_label">Free text</string>
+    <string name="objects_selection_label">Selection</string>
+    <string name="object_find_label">Find</string>
+    <string name="object_select_label">Select/track</string>
+    <string name="object_nothing_selected">Nothing selected</string>
+    <string name="object_unselect_label">Unselect object</string>
     <string-array name="catalog_types">
         <item>M</item>
         <item>NGC</item>
