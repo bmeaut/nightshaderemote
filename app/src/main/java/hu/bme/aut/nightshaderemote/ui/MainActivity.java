@@ -21,6 +21,7 @@ import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.connectivity.CommandHandler;
 import hu.bme.aut.nightshaderemote.connectivity.models.JResponse;
 import hu.bme.aut.nightshaderemote.ui.custombuttons.CustomButtonsFragment;
+import hu.bme.aut.nightshaderemote.ui.notes.NoteListFragment;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -94,10 +95,14 @@ public class MainActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_preferences) {
-            startActivity(new Intent(this, PreferencesActivity.class));
-            return true;
+
+        switch (item.getItemId()) {
+            case R.id.action_preferences:
+                startActivity(new Intent(this, PreferencesActivity.class));
+                return true;
+            case R.id.action_reset:
+                //TODO Kedves Ákos! Ide jön a resetelő metódus ! :)
+                Toast.makeText(this,"Rátenyereltél a Resetre",Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -118,6 +123,7 @@ public class MainActivity extends ActionBarActivity {
             fragmentList.add(ScriptsFragment.newInstance());
             fragmentList.add(CustomButtonsFragment.newInstance());
             fragmentList.add(ObjectFragment.newInstance());
+            fragmentList.add(NoteListFragment.newInstance());
         }
 
         @Override

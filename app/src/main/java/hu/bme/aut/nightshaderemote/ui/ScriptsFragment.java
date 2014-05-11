@@ -15,7 +15,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import hu.bme.aut.nightshaderemote.FileExtensionFilter;
+import hu.bme.aut.nightshaderemote.FileExtensionFilter_sts;
 import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.U;
 import hu.bme.aut.nightshaderemote.connectivity.CommandHandler;
@@ -73,7 +73,7 @@ public class ScriptsFragment extends Fragment {
         mScriptList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String filename = adapter.getItem(position);
+                String filename = adapter.getItem(position)+".sts"; //TODO Ákos légyszi majd próbáld ki, de szerntem így jó lesz (azért kell ide, mert a listába rakáskor mégis levágtam a kiterjesztést)
                 Command c = new RunCommand(filename);
                 /*new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), new SendCommand.OnCommandSentListener() {
                     @Override
@@ -96,14 +96,14 @@ public class ScriptsFragment extends Fragment {
         File searchDir = new File(sd, new File(U.C.APP_FOLDER, U.C.SCRIPTS_FOLDER).getPath());
         boolean result = searchDir.mkdirs(); // első indulásnál jön létre
 
-        String[] mFileNames = searchDir.list(new FileExtensionFilter());
+        String[] mFileNames = searchDir.list(new FileExtensionFilter_sts());
         if (mFileNames == null) mFileNames = new String[0];
         Arrays.sort(mFileNames);
 
         adapter.clear();
         adapter.setNotifyOnChange(false);
         for (String s : mFileNames) {
-            adapter.add(s);
+            adapter.add(s.substring(0,s.length()-4));
         }
         adapter.notifyDataSetChanged();
     }

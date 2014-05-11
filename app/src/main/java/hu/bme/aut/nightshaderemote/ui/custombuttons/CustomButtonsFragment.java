@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import hu.bme.aut.nightshaderemote.FileExtensionFilter;
+import hu.bme.aut.nightshaderemote.FileExtensionFilter_sts;
 import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.connectivity.CommandHandler;
 import hu.bme.aut.nightshaderemote.connectivity.commands.Command;
@@ -38,7 +38,7 @@ import hu.bme.aut.nightshaderemote.connectivity.commands.ExecuteCommand;
 /**
  * Created by Marci on 2014.03.15..
  */
-public class CustomButtonsFragment extends Fragment implements ButtonDialogFragment.IButtonAddedListener {
+public class CustomButtonsFragment extends Fragment implements CustomButtonDialogFragment.IButtonAddedListener {
 
     CustomButton clickedButton; // TODO egyelőre nem tudom szebben megoldani
 
@@ -102,7 +102,7 @@ public class CustomButtonsFragment extends Fragment implements ButtonDialogFragm
         boolean result = searchDir.mkdirs();
 
         // beolvassa az sts fájlokat egy tömbbe
-        File[] files = searchDir.listFiles(new FileExtensionFilter());
+        File[] files = searchDir.listFiles(new FileExtensionFilter_sts());
 
         // kiüríti a customButtonList tömböt, hogy újraépíthesse, így nem duplikálódnak az elemek
         customButtonsAdapter.clear();
@@ -159,10 +159,13 @@ public class CustomButtonsFragment extends Fragment implements ButtonDialogFragm
         switch (item.getItemId()) {
             case R.id.addnewbutton:
                 //a new button gomb megnyomására létrejön egy dialódus fragment
-                ButtonDialogFragment addNewButtonDialog = new ButtonDialogFragment();
+                CustomButtonDialogFragment addNewButtonDialog = new CustomButtonDialogFragment();
+                Bundle b = new Bundle();
+                b.putString("Mode", "NEW");
+                addNewButtonDialog.setArguments(b);
                 addNewButtonDialog.setTargetFragment(this, 0);
                 FragmentManager fm = getFragmentManager();
-                addNewButtonDialog.show(fm, ButtonDialogFragment.TAG);
+                addNewButtonDialog.show(fm, CustomButtonDialogFragment.TAG);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -194,14 +197,15 @@ public class CustomButtonsFragment extends Fragment implements ButtonDialogFragm
 
             case R.id.edit_item:
                 //Toast.makeText(getActivity(),"Edit", Toast.LENGTH_SHORT).show(); //TODO teszteléshez
-                ButtonDialogFragment addNewButtonDialog = new ButtonDialogFragment();
+                CustomButtonDialogFragment editButtonDialog = new CustomButtonDialogFragment();
                 Bundle b = new Bundle();
-                b.putString("Title",clickedButton.getTitle());
-                b.putString("Script",clickedButton.getScriptText());
-                addNewButtonDialog.setArguments(b);
-                addNewButtonDialog.setTargetFragment(this, 0);
+                b.putString("Title", clickedButton.getTitle());
+                b.putString("Script", clickedButton.getScriptText());
+                b.putString("Mode", "EDIT");
+                editButtonDialog.setArguments(b);
+                editButtonDialog.setTargetFragment(this, 0);
                 FragmentManager fm = getFragmentManager();
-                addNewButtonDialog.show(fm, ButtonDialogFragment.TAG);
+                editButtonDialog.show(fm, CustomButtonDialogFragment.TAG);
                 return true;
         }
         return super.onContextItemSelected(item);
@@ -268,7 +272,13 @@ public class CustomButtonsFragment extends Fragment implements ButtonDialogFragm
             View itemView = inflater.inflate(R.layout.item_custombutton, null);
 
             Button button = (Button) itemView.findViewById(R.id.button);
-            button.setText(customButton.getTitle());
+
+            //TODO a cím hossza nincs kisképernyős telefonokon tesztelve
+            if (customButton.getTitle().length() > 8) {
+                button.setText(customButton.getTitle().substring(0, 7) + "...");
+            } else {
+                button.setText(customButton.getTitle());
+            }
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

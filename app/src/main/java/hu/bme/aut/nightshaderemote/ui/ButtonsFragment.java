@@ -93,20 +93,20 @@ public class ButtonsFragment extends Fragment {
     }
 
     protected void setFlagStates(JFlagState fs) {
-        getFlagButton(R.id.toggleButton_c).setChecked(fs.isConstellationLines());
-        getFlagButton(R.id.toggleButton_v).setChecked(fs.isConstellationLabels());
-        getFlagButton(R.id.toggleButton_r).setChecked(fs.isConstellationArt());
+        getFlagButton(R.id.toggleButton_constlines).setChecked(fs.isConstellationLines());
+        getFlagButton(R.id.toggleButton_constnames).setChecked(fs.isConstellationLabels());
+        getFlagButton(R.id.toggleButton_constart).setChecked(fs.isConstellationArt());
 
-        getFlagButton(R.id.toggleButton_z).setChecked(fs.isAzimuthalGrid());
-        getFlagButton(R.id.toggleButton_e).setChecked(fs.isEquatorialGrid());
-        getFlagButton(R.id.toggleButton_g).setChecked(fs.isGround());
+        getFlagButton(R.id.toggleButton_azigrid).setChecked(fs.isAzimuthalGrid());
+        getFlagButton(R.id.toggleButton_equagrid).setChecked(fs.isEquatorialGrid());
+        getFlagButton(R.id.toggleButton_ground).setChecked(fs.isGround());
 
-        getFlagButton(R.id.toggleButton_q).setChecked(fs.isCardinalPoints());
-        getFlagButton(R.id.toggleButton_a).setChecked(fs.isAtmosphere());
-        getFlagButton(R.id.toggleButton_p).setChecked(fs.isBodyLabels());
+        getFlagButton(R.id.toggleButton_cardinalpoints).setChecked(fs.isCardinalPoints());
+        getFlagButton(R.id.toggleButton_atmosphere).setChecked(fs.isAtmosphere());
+        getFlagButton(R.id.toggleButton_planetnames).setChecked(fs.isBodyLabels());
 
-        getFlagButton(R.id.toggleButton_n).setChecked(fs.isNebulaLabels());
-        getFlagButton(R.id.toggleButton_enter).setChecked(fs.isMount());
+        getFlagButton(R.id.toggleButton_nebulanames).setChecked(fs.isNebulaLabels());
+        getFlagButton(R.id.toggleButton_coordinatesys).setChecked(fs.isMount());
         //getFlagButton(R.id.toggleButton_space).setChecked(fs.isConstellationLines());
     }
 
@@ -115,21 +115,21 @@ public class ButtonsFragment extends Fragment {
     }
 
     private void prepareButtons() {
-        root.findViewById(R.id.toggleButton_c).setTag(new FlagCommand(FlagCommand.CommandName.CONSTELLATION_LINES, FlagCommand.CommandState.TOGGLE));
-        root.findViewById(R.id.toggleButton_v).setTag(new FlagCommand(FlagCommand.CommandName.CONSTELLATION_LABELS, FlagCommand.CommandState.TOGGLE));
-        root.findViewById(R.id.toggleButton_r).setTag(new FlagCommand(FlagCommand.CommandName.CONSTELLATION_ART, FlagCommand.CommandState.TOGGLE));
+        root.findViewById(R.id.toggleButton_constlines).setTag(new FlagCommand(FlagCommand.CommandName.CONSTELLATION_LINES, FlagCommand.CommandState.TOGGLE));
+        root.findViewById(R.id.toggleButton_constnames).setTag(new FlagCommand(FlagCommand.CommandName.CONSTELLATION_LABELS, FlagCommand.CommandState.TOGGLE));
+        root.findViewById(R.id.toggleButton_constart).setTag(new FlagCommand(FlagCommand.CommandName.CONSTELLATION_ART, FlagCommand.CommandState.TOGGLE));
 
-        root.findViewById(R.id.toggleButton_z).setTag(new FlagCommand(FlagCommand.CommandName.AZIMUTHAL_GRID, FlagCommand.CommandState.TOGGLE));
-        root.findViewById(R.id.toggleButton_e).setTag(new FlagCommand(FlagCommand.CommandName.EQUTORIAL_GRID, FlagCommand.CommandState.TOGGLE));
-        root.findViewById(R.id.toggleButton_g).setTag(new FlagCommand(FlagCommand.CommandName.GROUND, FlagCommand.CommandState.TOGGLE));
+        root.findViewById(R.id.toggleButton_azigrid).setTag(new FlagCommand(FlagCommand.CommandName.AZIMUTHAL_GRID, FlagCommand.CommandState.TOGGLE));
+        root.findViewById(R.id.toggleButton_equagrid).setTag(new FlagCommand(FlagCommand.CommandName.EQUTORIAL_GRID, FlagCommand.CommandState.TOGGLE));
+        root.findViewById(R.id.toggleButton_ground).setTag(new FlagCommand(FlagCommand.CommandName.GROUND, FlagCommand.CommandState.TOGGLE));
 
-        root.findViewById(R.id.toggleButton_q).setTag(new FlagCommand(FlagCommand.CommandName.CARDINAL_POINTS, FlagCommand.CommandState.TOGGLE));
-        root.findViewById(R.id.toggleButton_a).setTag(new FlagCommand(FlagCommand.CommandName.ATMOSPHERE, FlagCommand.CommandState.TOGGLE));
-        root.findViewById(R.id.toggleButton_p).setTag(new FlagCommand(FlagCommand.CommandName.BODY_LABELS, FlagCommand.CommandState.TOGGLE));
+        root.findViewById(R.id.toggleButton_cardinalpoints).setTag(new FlagCommand(FlagCommand.CommandName.CARDINAL_POINTS, FlagCommand.CommandState.TOGGLE));
+        root.findViewById(R.id.toggleButton_atmosphere).setTag(new FlagCommand(FlagCommand.CommandName.ATMOSPHERE, FlagCommand.CommandState.TOGGLE));
+        root.findViewById(R.id.toggleButton_planetnames).setTag(new FlagCommand(FlagCommand.CommandName.BODY_LABELS, FlagCommand.CommandState.TOGGLE));
 
-        root.findViewById(R.id.toggleButton_n).setTag(new FlagCommand(FlagCommand.CommandName.NEBULA_LABELS, FlagCommand.CommandState.TOGGLE));
-        root.findViewById(R.id.toggleButton_enter).setTag(new FlagCommand(FlagCommand.CommandName.MOUNT, FlagCommand.CommandState.TOGGLE));
-        root.findViewById(R.id.toggleButton_space).setTag(new RefreshCommand()); // TODO ideiglenes, menübe kirakni !!!
+        root.findViewById(R.id.toggleButton_nebulanames).setTag(new FlagCommand(FlagCommand.CommandName.NEBULA_LABELS, FlagCommand.CommandState.TOGGLE));
+        root.findViewById(R.id.toggleButton_coordinatesys).setTag(new FlagCommand(FlagCommand.CommandName.MOUNT, FlagCommand.CommandState.TOGGLE));
+        root.findViewById(R.id.toggleButton_track).setTag(new RefreshCommand()); // TODO ideiglenes, menübe kirakni !!!
 
         for (View v : root.getTouchables()) {
             if (v instanceof ToggleButton) {
