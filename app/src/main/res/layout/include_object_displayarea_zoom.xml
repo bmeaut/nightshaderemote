@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/object_nothing_selected"
+            android:id="@+id/objectName"
+            android:layout_gravity="center_horizontal"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/objectImage"
+            android:src="@drawable/not_found"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:gravity="right"
+        android:layout_gravity="right">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="+"
+            android:id="@+id/buZoomIn"
+            android:layout_gravity="center_horizontal"/>
+
+        <hu.bme.aut.nightshaderemote.ui.VerticalSeekBar
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/zoomBar"
+            android:indeterminateOnly="false"
+            android:indeterminate="false"
+            android:max="10"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:clickable="false"/>
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="-"
+            android:id="@+id/buZoomOut"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+
+</merge>

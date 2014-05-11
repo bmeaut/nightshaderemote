@@ -6,174 +6,28 @@
     tools:context="hu.bme.aut.nightshaderemote.ui.ObjectFragment">
 
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <include layout="@layout/include_object_inputs"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/objects_from_catalog_label"/>
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/catalogType"
-            android:entries="@array/catalog_types"
-            />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:ems="10"
-            android:id="@+id/objectIdentifierCatalog"
-            />
-    </LinearLayout>
+    <include layout="@layout/include_object_buttons"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/objects_selection_label"/>
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/objectType"
-            android:entries="@array/object_types"
-            />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:ems="10"
-            android:id="@+id/objectIdentifier"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/objects_free_text_label"
-            android:id="@+id/textView"/>
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:ems="10"
-            android:id="@+id/objectFreeInput"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="false">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/object_find_label"
-            android:id="@+id/buFind"
-            android:layout_weight="1"
-            android:layout_marginRight="20dp"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/object_select_label"
-            android:id="@+id/buTrack"
-            android:layout_weight="1"
-            android:layout_marginLeft="20dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        >
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1">
+        <include layout="@layout/include_object_displayarea_zoom"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/object_nothing_selected"
-                android:id="@+id/objectName"
-                android:layout_gravity="center_horizontal"/>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/objectImage"
-                android:src="@drawable/not_found"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="0dp"
-            android:gravity="right"
-            android:layout_gravity="right">
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="+"
-                android:id="@+id/buZoomIn"
-                android:layout_gravity="center_horizontal"/>
-
-            <hu.bme.aut.nightshaderemote.ui.VerticalSeekBar
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:id="@+id/zoomBar"
-                android:indeterminateOnly="false"
-                android:indeterminate="false"
-                android:max="10"
-                android:padding="10dp"
-                android:layout_weight="1"
-                android:layout_gravity="center_horizontal"
-                android:clickable="false"/>
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="-"
-                android:id="@+id/buZoomOut"
-                android:layout_gravity="center_horizontal"/>
-
-        </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/object_unselect_label"
-        android:id="@+id/buUnselect"
-        android:layout_gravity="center_horizontal"/>
+    <include layout="@layout/include_object_deselect"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content" />
 
 </LinearLayout>
