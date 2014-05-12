@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
@@ -23,7 +22,7 @@ import hu.bme.aut.nightshaderemote.connectivity.models.JResponse;
 import hu.bme.aut.nightshaderemote.ui.custombuttons.CustomButtonsFragment;
 import hu.bme.aut.nightshaderemote.ui.notes.NoteListFragment;
 
-public class MainActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener{
+public class MainActivity extends ActionBarActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -49,12 +48,12 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(this);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOnPageChangeListener(this);
+        mViewPager.setOnPageChangeListener(mSectionsPagerAdapter);
 
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(new BroadcastReceiver() {
             @Override
@@ -108,58 +107,63 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-        //TODO egyelőre ez a megoldás a legegyszerűbb (inkonzisztencia kialakulása lehetséges)
-        switch (position) {
-            case 0: setTitle(getString(R.string.title_buttons));
-                break;
-            case 1: setTitle(getString(R.string.title_scripts));
-                break;
-            case 2: setTitle(getString(R.string.title_custombuttons));
-                break;
-            case 3: setTitle(getString(R.string.title_notes));
-        }
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-        private List<Fragment> fragmentList;
+    public class SectionsPagerAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
+        private final MainActivity mActivity;
+        private List<PageInfo> fragmentList;
 
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-            fragmentList = new ArrayList<>();
-            fragmentList.add(ButtonsFragment.newInstance());
-            fragmentList.add(ScriptsFragment.newInstance());
-            fragmentList.add(CustomButtonsFragment.newInstance());
-            fragmentList.add(NoteListFragment.newInstance());
+        public SectionsPagerAdapter(MainActivity activity) {
+            super(activity.getSupportFragmentManager());
+            this.mActivity = activity;
+            this.fragmentList = new ArrayList<>();
+            addPage(ButtonsFragment.class, null, getString(R.string.title_buttons));
+            addPage(ScriptsFragment.class, null, getString(R.string.title_scripts));
+            addPage(CustomButtonsFragment.class, null, getString(R.string.title_custombuttons));
+            addPage(NoteListFragment.class, null, getString(R.string.title_notes));
+        }
+
+        public void addPage(Class<? extends Fragment> fragmentClass, Bundle args, String title) {
+            final PageInfo pi = new PageInfo(fragmentClass, args, title);
+            fragmentList.add(pi);
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            return fragmentList.get(position);
+            final PageInfo pi = fragmentList.get(position);
+            return Fragment.instantiate(mActivity, pi.fragmentClass.getName(), pi.args);
         }
 
         @Override
         public int getCount() {
-            // Show 2 total pages.
             return fragmentList.size();
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            mActivity.setTitle(fragmentList.get(position).title);
+        }
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+        @Override
+        public void onPageScrollStateChanged(int state) {}
+
+        private class PageInfo {
+            public final Class<? extends Fragment> fragmentClass;
+            public final Bundle args;
+            public final String title;
+
+            private PageInfo(Class<? extends Fragment> fragmentClass, Bundle args, String title) {
+                this.fragmentClass = fragmentClass;
+                this.args = args;
+                this.title = title;
+            }
         }
     }
 }
