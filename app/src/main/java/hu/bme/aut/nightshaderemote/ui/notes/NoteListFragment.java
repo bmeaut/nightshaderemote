@@ -1,10 +1,10 @@
 package hu.bme.aut.nightshaderemote.ui.notes;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,17 +12,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import hu.bme.aut.nightshaderemote.FileExtensionFilter_txt;
 import hu.bme.aut.nightshaderemote.R;
@@ -34,10 +33,11 @@ import hu.bme.aut.nightshaderemote.U;
 public class NoteListFragment extends Fragment implements NewNoteDialogFragment.NoteAddedListener {
 
     public static final String TAG = "NoteListFragment";
-    private ArrayAdapter<String> adapter;
+    private NotesAdapter adapter;
+
+    protected Note selectedNote;
 
     protected View root;
-    File txtFile;
     EditText noteText;
     Spinner spinner;
 
@@ -56,7 +56,7 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
         root = inflater.inflate(R.layout.fragment_notelist, container, false);
 
         spinner = (Spinner) root.findViewById(R.id.noteSelector);
-        adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, new ArrayList<String>());
+        adapter = new NotesAdapter();
         spinner.setAdapter(adapter);
         noteText =((EditText) root.findViewById(R.id.noteText));
         Button save = ((Button) root.findViewById(R.id.save));
@@ -64,35 +64,38 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveFile(txtFile, noteText.getText().toString());
+                if (selectedNote != null) {
+                    selectedNote.setContent(noteText.getText().toString());
+                }
             }
         });
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-
-                Log.d("MyTAG","OnItemSelected lefut");
-                String filename = adapter.getItem(position)+".txt";
-                txtFile = openTXTFile(filename);
-                String text = readFile(txtFile);
-                noteText.setText(text);
-                Log.d("MyTAG",txtFile.getName());
-                Log.d("MyTAG",text);
+                selectedNote = (Note) adapter.getItem(position);
+                displayNote();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                selectedNote = null;
+                displayNote();
             }
         });
 
         setHasOptionsMenu(true);
 
-        refreshNoteList();
-
         return root;
 
+    }
+
+    private void displayNote() {
+        if (selectedNote != null) {
+            noteText.setText(selectedNote.getContent());
+        } else {
+            noteText.setText(getString(R.string.notes_default_text));
+        }
     }
 
     @Override
@@ -112,12 +115,20 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
                 newNoteDialogFragment.show(fm, NewNoteDialogFragment.TAG);
                 return true;
             case R.id.deleteselecteditem:
-                txtFile.delete();
-                refreshNoteList();
-                if(adapter.getCount() > 0) {
-                    spinner.setSelection(0, false);
+                if (selectedNote != null) {
+                    selectedNote.delete();
+                    adapter.remove(selectedNote);
                 }
-                //TODO ez még nem működik rendesen
+
+                if (adapter.getCount() > 0) {
+                    spinner.setSelection(0);
+                    selectedNote = (Note) spinner.getSelectedItem();
+                } else {
+                    selectedNote = null;
+                }
+
+                displayNote();
+
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -131,9 +142,10 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
 
     @Override
     public void onNoteAdded(String title) {
-        createTXTFile(title+".txt");
-        refreshNoteList();
-        spinner.setSelection(adapter.getPosition(title), false);
+        File f = createTXTFile(title + ".txt");
+        Note note = new Note(f);
+        adapter.add(note);
+        spinner.setSelection(adapter.getPosition(note), false);
     }
 
     /**
@@ -145,15 +157,25 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
         File searchDir = new File(sd, new File(U.C.APP_FOLDER, U.C.NOTES_FOLDER).getPath());
         boolean result = searchDir.mkdirs(); // első indulásnál jön létre
 
-        String[] mFileNames = searchDir.list(new FileExtensionFilter_txt());
-        if (mFileNames == null) mFileNames = new String[0];
+        File[] mFiles = searchDir.listFiles(new FileExtensionFilter_txt());
+        if (mFiles != null && mFiles.length > 0) {
 
-        adapter.clear();
-        adapter.setNotifyOnChange(false);
-        for (String s : mFileNames) {
-            adapter.add(s.substring(0,s.length()-4));
+            adapter.clear();
+
+            List<Note> notes = new ArrayList<>(mFiles.length);
+            for (File f : mFiles) {
+                notes.add(new Note(f));
+            }
+
+            adapter.addAll(notes);
+
+            selectedNote = (Note) adapter.getItem(0);
+        } else {
+            selectedNote = null;
         }
-        adapter.notifyDataSetChanged();
+
+        displayNote();
+
     }
 
     /**
@@ -174,78 +196,83 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
     }
 
     /**
-     * Beolvassa a kapot File tartalmát
-     * @param file File típusú objkektum, amiből olvasni szereténk
-     * @return Visszatér egy Stringgel, ami a File tartalmát hordozza
-     */
-    public String readFile(File file){
-
-        StringBuilder text = new StringBuilder();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                text.append(line);
-                text.append('\n');
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return text.toString();
-    }
-
-    /**
-     * Felülírja a kívánt fájlt
-     * @param file A File amit felül szeretnénk írni
-     * @param text A File Új tartalma
-     */
-    public void saveFile (File file, String text){
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter(file);
-            writer.append(text);
-            writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (writer != null)
-                    writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
      *
      * @param sFileName
      */
-    public void createTXTFile(String sFileName) {
+    public File createTXTFile(String sFileName) {
         final String APP_FOLDER = "NightshadeRemote";
         final String CUSTOM_BUTTONS_FOLDER = "notes";
 
         File sd = Environment.getExternalStorageDirectory();
         File searchDir = new File(sd, new File(APP_FOLDER, CUSTOM_BUTTONS_FOLDER).getPath());
 
-        File stsFile = new File(searchDir, sFileName);
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter(stsFile);
-            writer.append("");
-            writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (writer != null)
-                    writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+        return new File(searchDir, sFileName);
+    }
+
+    protected static class NotesAdapter extends BaseAdapter {
+
+        protected List<Note> items;
+
+        public NotesAdapter() {
+            items = new ArrayList<>();
+        }
+
+        public void add(Note note) {
+            items.add(note);
+            notifyDataSetChanged();
+        }
+
+        public void addAll(Collection<Note> notes) {
+            items.addAll(notes);
+            notifyDataSetChanged();
+        }
+
+        public void clear() {
+            items.clear();
+            notifyDataSetChanged();
+        }
+
+        public void remove(Note note) {
+            items.remove(note);
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public int getCount() {
+            return items.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return items.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            final Note note = items.get(position);
+
+            LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            if (convertView == null) {
+                convertView = inflater.inflate(android.R.layout.simple_list_item_1, null);
+                TextView v = (TextView) convertView.findViewById(android.R.id.text1);
+                convertView.setTag(v);
             }
+
+            TextView v = (TextView) convertView.getTag();
+
+            v.setText(note.getTitle());
+
+            return convertView;
+        }
+
+        public int getPosition(Note note) {
+            return items.indexOf(note);
         }
     }
+
 }

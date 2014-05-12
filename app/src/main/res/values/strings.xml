@@ -36,5 +36,6 @@
     <string name="title_scripts">Scripts</string>
     <string name="title_custombuttons">Custom Buttons</string>
     <string name="title_notes">Notes</string>
+    <string name="notes_default_text">Lorem ipsum default text....</string>
 
 </resources>
