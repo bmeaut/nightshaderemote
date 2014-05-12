@@ -30,5 +30,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="button_save">Save</string>
+    <string name="label_title">Title:</string>
+    <string name="error_entername">Please enter a name!</string>
+    <string name="title_buttons">Nightshade Remote</string>
+    <string name="title_scripts">Scripts</string>
+    <string name="title_custombuttons">Custom Buttons</string>
+    <string name="title_notes">Notes</string>
 
 </resources>

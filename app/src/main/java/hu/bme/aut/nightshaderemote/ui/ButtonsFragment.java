@@ -72,7 +72,6 @@ public class ButtonsFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_buttons, container, false);
 
         prepareButtons();
-
         setHasOptionsMenu(true);
 
         return root;

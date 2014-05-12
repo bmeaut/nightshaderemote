@@ -23,7 +23,7 @@ import hu.bme.aut.nightshaderemote.connectivity.models.JResponse;
 import hu.bme.aut.nightshaderemote.ui.custombuttons.CustomButtonsFragment;
 import hu.bme.aut.nightshaderemote.ui.notes.NoteListFragment;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -54,6 +54,7 @@ public class MainActivity extends ActionBarActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOnPageChangeListener(this);
 
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(new BroadcastReceiver() {
             @Override
@@ -107,6 +108,30 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+        //TODO egyelőre ez a megoldás a legegyszerűbb (inkonzisztencia kialakulása lehetséges)
+        switch (position) {
+            case 0: setTitle(getString(R.string.title_buttons));
+                break;
+            case 1: setTitle(getString(R.string.title_scripts));
+                break;
+            case 2: setTitle(getString(R.string.title_custombuttons));
+                break;
+            case 3: setTitle(getString(R.string.title_notes));
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
 
 
     /**

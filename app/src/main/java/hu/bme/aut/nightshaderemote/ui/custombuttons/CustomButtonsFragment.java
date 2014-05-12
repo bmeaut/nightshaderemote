@@ -60,9 +60,9 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_custombuttons, container, false);
+        View root = inflater.inflate(R.layout.fragment_custombuttons, container, false);
 
-        gridView = (GridView) v.findViewById(R.id.customButtonList);
+        gridView = (GridView) root.findViewById(R.id.customButtonList);
         customButtonsAdapter = new CustomButtonsAdapter();
         gridView.setAdapter(customButtonsAdapter);
 
@@ -70,7 +70,7 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
 
 
         setHasOptionsMenu(true);
-        return v;
+        return root;
     }
 
     protected void onCustomButtonClicked(CustomButton cubu) {
@@ -88,6 +88,81 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
             }).execute(c);*/
             LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_new, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            case R.id.addnewitem:
+                //a new button gomb megnyomására létrejön egy dialódus fragment
+                CustomButtonDialogFragment addNewButtonDialog = new CustomButtonDialogFragment();
+                Bundle b = new Bundle();
+                b.putString("Mode", "NEW");
+                addNewButtonDialog.setArguments(b);
+                addNewButtonDialog.setTargetFragment(this, 0);
+                FragmentManager fm = getFragmentManager();
+                addNewButtonDialog.show(fm, CustomButtonDialogFragment.TAG);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.context_menu_custombuttons, menu);
+        clickedButton = (CustomButton) v.getTag();
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.delete_item:
+                final String APP_FOLDER = "NightshadeRemote";
+                final String CUSTOM_BUTTONS_FOLDER = "custom_buttons";
+
+                File sd = Environment.getExternalStorageDirectory();
+                File searchDir = new File(sd, new File(APP_FOLDER, CUSTOM_BUTTONS_FOLDER).getPath());
+                File stsFile = new File(searchDir, clickedButton.getTitle().concat(".sts")); // TODO ezzel így csak kisbetűs sts kiterjesztésű fájt lehet törölni
+                boolean deleted = stsFile.delete();
+                refreshCustomButtons();
+                return true;
+
+            case R.id.edit_item:
+                //Toast.makeText(getActivity(),"Edit", Toast.LENGTH_SHORT).show(); //TODO teszteléshez
+                CustomButtonDialogFragment editButtonDialog = new CustomButtonDialogFragment();
+                Bundle b = new Bundle();
+                b.putString("Title", clickedButton.getTitle());
+                b.putString("Script", clickedButton.getScriptText());
+                b.putString("Mode", "EDIT");
+                editButtonDialog.setArguments(b);
+                editButtonDialog.setTargetFragment(this, 0);
+                FragmentManager fm = getFragmentManager();
+                editButtonDialog.show(fm, CustomButtonDialogFragment.TAG);
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onButtonAdded() {
+        refreshCustomButtons();
     }
 
     private void refreshCustomButtons() {
@@ -138,82 +213,6 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
         }
 
         customButtonsAdapter.addAll(fromDirectory);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_custombuttons, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId()) {
-            case R.id.addnewbutton:
-                //a new button gomb megnyomására létrejön egy dialódus fragment
-                CustomButtonDialogFragment addNewButtonDialog = new CustomButtonDialogFragment();
-                Bundle b = new Bundle();
-                b.putString("Mode", "NEW");
-                addNewButtonDialog.setArguments(b);
-                addNewButtonDialog.setTargetFragment(this, 0);
-                FragmentManager fm = getFragmentManager();
-                addNewButtonDialog.show(fm, CustomButtonDialogFragment.TAG);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.context_menu_custombuttons, menu);
-        clickedButton = (CustomButton) v.getTag();
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.delete_item:
-                final String APP_FOLDER = "NightshadeRemote";
-                final String CUSTOM_BUTTONS_FOLDER = "custom_buttons";
-
-                File sd = Environment.getExternalStorageDirectory();
-                File searchDir = new File(sd, new File(APP_FOLDER, CUSTOM_BUTTONS_FOLDER).getPath());
-                File stsFile = new File(searchDir, clickedButton.getTitle().concat(".sts")); // TODO ezzel így csak kisbetűs sts kiterjesztésű fájt lehet törölni
-                boolean deleted = stsFile.delete();
-                refreshCustomButtons();
-                //Toast.makeText(getActivity(), clickedButton.getTitle(), Toast.LENGTH_SHORT).show(); //TODO teszteléshez
-                return true;
-
-            case R.id.edit_item:
-                //Toast.makeText(getActivity(),"Edit", Toast.LENGTH_SHORT).show(); //TODO teszteléshez
-                CustomButtonDialogFragment editButtonDialog = new CustomButtonDialogFragment();
-                Bundle b = new Bundle();
-                b.putString("Title", clickedButton.getTitle());
-                b.putString("Script", clickedButton.getScriptText());
-                b.putString("Mode", "EDIT");
-                editButtonDialog.setArguments(b);
-                editButtonDialog.setTargetFragment(this, 0);
-                FragmentManager fm = getFragmentManager();
-                editButtonDialog.show(fm, CustomButtonDialogFragment.TAG);
-                return true;
-        }
-        return super.onContextItemSelected(item);
-    }
-
-    @Override
-    public void onButtonAdded() {
-        refreshCustomButtons();
     }
 
     /**

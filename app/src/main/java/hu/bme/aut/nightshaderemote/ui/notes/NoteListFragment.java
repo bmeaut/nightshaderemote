@@ -3,14 +3,17 @@ package hu.bme.aut.nightshaderemote.ui.notes;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.io.BufferedReader;
@@ -19,7 +22,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import hu.bme.aut.nightshaderemote.FileExtensionFilter_txt;
 import hu.bme.aut.nightshaderemote.R;
@@ -28,15 +30,16 @@ import hu.bme.aut.nightshaderemote.U;
 /**
  * Created by Marci on 2014.05.07..
  */
-public class NoteListFragment extends Fragment {
+public class NoteListFragment extends Fragment implements NewNoteDialogFragment.NoteAddedListener {
 
     public static final String TAG = "NoteListFragment";
-    private ListView mNoteList;
+    public static String TITLE;
     private ArrayAdapter<String> adapter;
 
     protected View root;
     File txtFile;
     EditText noteText;
+    Spinner spinner;
 
     public static NoteListFragment newInstance() {
         NoteListFragment fragment = new NoteListFragment();
@@ -52,7 +55,9 @@ public class NoteListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_notelist, container, false);
 
-        Spinner spinner = (Spinner) root.findViewById(R.id.noteSelector);
+        TITLE = getResources().getString(R.string.title_notes);
+
+        spinner = (Spinner) root.findViewById(R.id.noteSelector);
         adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, new ArrayList<String>());
         spinner.setAdapter(adapter);
         noteText =((EditText) root.findViewById(R.id.noteText));
@@ -81,11 +86,58 @@ public class NoteListFragment extends Fragment {
             }
         });
 
+        setHasOptionsMenu(true);
+
         refreshNoteList();
 
         return root;
 
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_new, menu);
+        inflater.inflate(R.menu.menu_delete, menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.addnewitem:
+                NewNoteDialogFragment newNoteDialogFragment = new NewNoteDialogFragment();
+                FragmentManager fm = getFragmentManager();
+                newNoteDialogFragment.setTargetFragment(this, 0);
+                newNoteDialogFragment.show(fm, NewNoteDialogFragment.TAG);
+                return true;
+            case R.id.deleteselecteditem:
+                txtFile.delete();
+                refreshNoteList();
+                if(adapter.getCount() > 0) {
+                    spinner.setSelection(0, false);
+                }
+                //TODO ez még nem működik rendesen
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshNoteList();
+    }
+
+    @Override
+    public void onNoteAdded(String title) {
+        createTXTFile(title+".txt");
+        refreshNoteList();
+        spinner.setSelection(adapter.getPosition(title), false);
+    }
+
+    /**
+     * Frissíti a Note listát
+     */
     private void refreshNoteList() {
 
         File sd = Environment.getExternalStorageDirectory();
@@ -94,7 +146,6 @@ public class NoteListFragment extends Fragment {
 
         String[] mFileNames = searchDir.list(new FileExtensionFilter_txt());
         if (mFileNames == null) mFileNames = new String[0];
-        Arrays.sort(mFileNames);
 
         adapter.clear();
         adapter.setNotifyOnChange(false);
@@ -102,12 +153,6 @@ public class NoteListFragment extends Fragment {
             adapter.add(s.substring(0,s.length()-4));
         }
         adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        refreshNoteList();
     }
 
     /**
@@ -161,6 +206,35 @@ public class NoteListFragment extends Fragment {
         try {
             writer = new FileWriter(file);
             writer.append(text);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (writer != null)
+                    writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     *
+     * @param sFileName
+     */
+    public void createTXTFile(String sFileName) {
+        final String APP_FOLDER = "NightshadeRemote";
+        final String CUSTOM_BUTTONS_FOLDER = "notes";
+
+        File sd = Environment.getExternalStorageDirectory();
+        File searchDir = new File(sd, new File(APP_FOLDER, CUSTOM_BUTTONS_FOLDER).getPath());
+
+        File stsFile = new File(searchDir, sFileName);
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(stsFile);
+            writer.append("");
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
