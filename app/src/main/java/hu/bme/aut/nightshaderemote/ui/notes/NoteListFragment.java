@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,7 +34,6 @@ import hu.bme.aut.nightshaderemote.U;
 public class NoteListFragment extends Fragment implements NewNoteDialogFragment.NoteAddedListener {
 
     public static final String TAG = "NoteListFragment";
-    public static String TITLE;
     private ArrayAdapter<String> adapter;
 
     protected View root;
@@ -55,8 +55,6 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_notelist, container, false);
 
-        TITLE = getResources().getString(R.string.title_notes);
-
         spinner = (Spinner) root.findViewById(R.id.noteSelector);
         adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, new ArrayList<String>());
         spinner.setAdapter(adapter);
@@ -66,7 +64,7 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveFile(txtFile,noteText.getText().toString());
+                saveFile(txtFile, noteText.getText().toString());
             }
         });
 
@@ -74,10 +72,13 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
 
+                Log.d("MyTAG","OnItemSelected lefut");
                 String filename = adapter.getItem(position)+".txt";
                 txtFile = openTXTFile(filename);
                 String text = readFile(txtFile);
                 noteText.setText(text);
+                Log.d("MyTAG",txtFile.getName());
+                Log.d("MyTAG",text);
             }
 
             @Override
