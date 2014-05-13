@@ -10,7 +10,13 @@ public class ControlCommand implements Command {
 
     public static enum CommandName {
         PLAY_PAUSE("scriptPlayPause"),
-        STOP("scriptStop");
+        STOP("scriptStop"),
+
+        FASTER("timeFaster"),
+        SLOWER("timeSlower"),
+        REAL_TIME("timeReal"),
+        CURRENT_TIME("timeCurrent"),
+        ;
 
         private String uriPart;
 

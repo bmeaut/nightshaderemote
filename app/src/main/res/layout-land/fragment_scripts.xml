@@ -41,7 +41,7 @@
         <hu.bme.aut.nightshaderemote.ui.SquareToggleButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_playpause"
+            android:id="@+id/scriptPlay"
             android:textOff=""
             android:textOn=""
             android:background="@drawable/btn_playpause"/>
@@ -49,7 +49,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_stop"
+            android:id="@+id/scriptStop"
             android:background="@drawable/btn_stop"
             android:focusableInTouchMode="true"/>
 

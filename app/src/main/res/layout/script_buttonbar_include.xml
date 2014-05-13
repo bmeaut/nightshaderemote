@@ -3,27 +3,27 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/timeSlower"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button_rewind"
         android:clickable="false" />
 
     <ImageButton
-        android:id="@+id/scriptBuPlay"
+        android:id="@+id/timeReal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button_play"/>
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/timeFaster"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button_fastforward"
         android:clickable="false" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/timeCurrent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button_currenttime"
