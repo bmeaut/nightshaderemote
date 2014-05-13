@@ -109,7 +109,7 @@ public class CustomButtonDialogFragment extends DialogFragment {
             }
         });
 
-        root.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
