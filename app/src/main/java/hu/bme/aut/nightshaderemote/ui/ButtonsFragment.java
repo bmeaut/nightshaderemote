@@ -27,11 +27,9 @@ import hu.bme.aut.nightshaderemote.connectivity.models.JResponse;
 public class ButtonsFragment extends Fragment {
 
     public static final String TAG = "ButtonsFragment";
-
-    protected View root;
-    protected FlagButtonOnclickListener flagButtonOnclickListener;
-
-    protected BroadcastReceiver responseReceiver;
+    private View root;
+    private FlagButtonOnclickListener flagButtonOnclickListener;
+    private BroadcastReceiver responseReceiver;
 
     public static ButtonsFragment newInstance() {
         ButtonsFragment fragment = new ButtonsFragment();
@@ -106,7 +104,6 @@ public class ButtonsFragment extends Fragment {
 
         getFlagButton(R.id.toggleButton_nebulanames).setChecked(fs.isNebulaLabels());
         getFlagButton(R.id.toggleButton_coordinatesys).setChecked(fs.isMount());
-        //getFlagButton(R.id.toggleButton_space).setChecked(fs.isConstellationLines());
     }
 
     protected ToggleButton getFlagButton(int id) {
@@ -136,17 +133,6 @@ public class ButtonsFragment extends Fragment {
             }
         }
     }
-
-    /*private SendCommand prepareSendCommand() {
-        // TODO shared prefs-ből!!!!
-        return new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), new SendCommand.OnCommandSentListener() {
-            @Override
-            public void onCommandSent(String result) {
-                Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }*/
-
     private class FlagButtonOnclickListener implements View.OnClickListener {
 
         @Override

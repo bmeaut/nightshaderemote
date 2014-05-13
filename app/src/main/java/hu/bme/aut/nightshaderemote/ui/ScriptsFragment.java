@@ -31,7 +31,6 @@ public class ScriptsFragment extends Fragment {
     public static final String TAG = "ScriptFragment";
     private ListView mScriptList;
     private ArrayAdapter<String> adapter;
-
     protected View root;
 
     public static ScriptsFragment newInstance() {
@@ -73,14 +72,8 @@ public class ScriptsFragment extends Fragment {
         mScriptList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String filename = adapter.getItem(position)+".sts"; //TODO Ákos légyszi majd próbáld ki, de szerntem így jó lesz (azért kell ide, mert a listába rakáskor mégis levágtam a kiterjesztést)
+                String filename = adapter.getItem(position)+".sts";
                 Command c = new RunCommand(filename);
-                /*new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), new SendCommand.OnCommandSentListener() {
-                    @Override
-                    public void onCommandSent(String result) {
-                        Toast .makeText(ScriptsFragment.this.getActivity(), result, Toast.LENGTH_SHORT).show();
-                    }
-                }).execute(c);*/
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
             }
         });
@@ -90,11 +83,20 @@ public class ScriptsFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshScriptList();
+    }
+
+    /**
+     * Frissíti a scriptek listáját
+     */
     private void refreshScriptList() {
 
         File sd = Environment.getExternalStorageDirectory();
         File searchDir = new File(sd, new File(U.C.APP_FOLDER, U.C.SCRIPTS_FOLDER).getPath());
-        boolean result = searchDir.mkdirs(); // első indulásnál jön létre
+        boolean result = searchDir.mkdirs();
 
         String[] mFileNames = searchDir.list(new FileExtensionFilter_sts());
         if (mFileNames == null) mFileNames = new String[0];
@@ -106,11 +108,5 @@ public class ScriptsFragment extends Fragment {
             adapter.add(s.substring(0,s.length()-4));
         }
         adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        refreshScriptList();
     }
 }

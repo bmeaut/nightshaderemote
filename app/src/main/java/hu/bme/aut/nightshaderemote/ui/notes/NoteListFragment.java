@@ -35,10 +35,8 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
 
     public static final String TAG = "NoteListFragment";
     private NotesAdapter adapter;
-
-    protected Note selectedNote;
-
-    protected View root;
+    private Note selectedNote;
+    private View root;
     EditText noteText;
     Spinner spinner;
 
@@ -61,15 +59,15 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
         spinner.setAdapter(adapter);
         noteText =((EditText) root.findViewById(R.id.noteText));
 
+        setHasOptionsMenu(true);
+
         noteText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-
             }
 
             @Override
@@ -93,19 +91,7 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
                 displayNote();
             }
         });
-
-        setHasOptionsMenu(true);
-
         return root;
-
-    }
-
-    private void displayNote() {
-        if (selectedNote != null) {
-                noteText.setText(selectedNote.getContent());
-        } else {
-            noteText.setText(getString(R.string.notes_default_text));
-        }
     }
 
     @Override
@@ -188,6 +174,17 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
 
         displayNote();
 
+    }
+
+    /**
+     * Megjeleníti a spinnerben kiválasztott file tartalmát egy EditText-ben
+     */
+    private void displayNote() {
+        if (selectedNote != null) {
+            noteText.setText(selectedNote.getContent());
+        } else {
+            noteText.setText(getString(R.string.notes_default_text));
+        }
     }
 
     /**

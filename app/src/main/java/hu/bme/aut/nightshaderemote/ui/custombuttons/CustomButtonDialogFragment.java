@@ -17,6 +17,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import hu.bme.aut.nightshaderemote.R;
+import hu.bme.aut.nightshaderemote.U;
 
 /**
  * Created by Marci on 2014.03.20..
@@ -96,9 +97,9 @@ public class CustomButtonDialogFragment extends DialogFragment {
                 String fileName = fileNameText.getText().toString().concat(".sts");
                 String script = scriptText.getText().toString();
 
-                if(fileName.equals(".sts")) {
+                if (fileName.equals(".sts")) {
                     Toast.makeText(getActivity(), getResources().getString(R.string.error_entername), Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     createSTSFile(fileName, script);
                     if (listener != null) {
                         listener.onButtonAdded();
@@ -130,11 +131,9 @@ public class CustomButtonDialogFragment extends DialogFragment {
      * @param sBody A létrehozandó fájl tartalma
      */
     public void createSTSFile(String sFileName, String sBody) {
-        final String APP_FOLDER = "NightshadeRemote";
-        final String CUSTOM_BUTTONS_FOLDER = "custom_buttons";
 
         File sd = Environment.getExternalStorageDirectory();
-        File searchDir = new File(sd, new File(APP_FOLDER, CUSTOM_BUTTONS_FOLDER).getPath());
+        File searchDir = new File(sd, new File(U.C.APP_FOLDER, U.C.CUSTOM_BUTTONS_FOLDER).getPath());
 
         File stsFile = new File(searchDir, sFileName);
         FileWriter writer = null;

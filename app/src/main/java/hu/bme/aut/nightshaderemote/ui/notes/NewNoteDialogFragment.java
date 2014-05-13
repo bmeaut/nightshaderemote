@@ -21,12 +21,11 @@ public class NewNoteDialogFragment extends DialogFragment {
     public static final String TAG = "NewNoteDialogFragment";
 
     private final String KEY_TITLE = "title";
-
-    View root;
-    EditText noteTitle;
-    Button ok;
-    Button cancel;
-    NoteAddedListener listener;
+    private View root;
+    private EditText noteTitle;
+    private Button ok;
+    private Button cancel;
+    private NoteAddedListener listener;
 
     @Override
     public void onAttach(Activity activity) {
@@ -48,11 +47,11 @@ public class NewNoteDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.dialog_fragment_newnote, container, false);
 
-        getDialog().setTitle("New Note");
-
         noteTitle = (EditText) root.findViewById(R.id.noteTitle);
         ok = (Button)root.findViewById(R.id.ok);
         cancel = (Button)root.findViewById(R.id.cancel);
+
+        getDialog().setTitle(getString(R.string.title_newnote));
 
         if(savedInstanceState != null){
             if(savedInstanceState.containsKey(KEY_TITLE)){
@@ -85,14 +84,15 @@ public class NewNoteDialogFragment extends DialogFragment {
 
         return root;
     }
-    //interface
-    public interface NoteAddedListener {
-        void onNoteAdded(String title);
-    }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(KEY_TITLE, noteTitle.getText().toString());
+    }
+
+    public interface NoteAddedListener {
+        void onNoteAdded(String title);
     }
 }

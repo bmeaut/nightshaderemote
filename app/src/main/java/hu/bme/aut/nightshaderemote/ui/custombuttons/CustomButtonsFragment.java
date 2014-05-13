@@ -31,6 +31,7 @@ import java.util.List;
 
 import hu.bme.aut.nightshaderemote.FileExtensionFilter_sts;
 import hu.bme.aut.nightshaderemote.R;
+import hu.bme.aut.nightshaderemote.U;
 import hu.bme.aut.nightshaderemote.connectivity.CommandHandler;
 import hu.bme.aut.nightshaderemote.connectivity.commands.Command;
 import hu.bme.aut.nightshaderemote.connectivity.commands.ExecuteCommand;
@@ -41,8 +42,6 @@ import hu.bme.aut.nightshaderemote.connectivity.commands.ExecuteCommand;
 public class CustomButtonsFragment extends Fragment implements CustomButtonDialogFragment.IButtonAddedListener {
 
     public static final String TAG = "CustomButtonsFragment";
-    private final String APP_FOLDER = "NightshadeRemote";
-    private final String CUSTOM_BUTTONS_FOLDER = "custom_buttons";
     private GridView gridView;
     private CustomButton clickedButton;
     private CustomButtonsAdapter customButtonsAdapter;
@@ -56,6 +55,9 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
         return fragment;
     }
 
+    public CustomButtonsFragment(){
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_custombuttons, container, false);
@@ -64,8 +66,8 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
         customButtonsAdapter = new CustomButtonsAdapter();
         gridView.setAdapter(customButtonsAdapter);
 
-        refreshCustomButtons();
         setHasOptionsMenu(true);
+        refreshCustomButtons();
 
         return root;
     }
@@ -123,7 +125,7 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
         switch (item.getItemId()) {
             case R.id.delete_item:
                 File sd = Environment.getExternalStorageDirectory();
-                File searchDir = new File(sd, new File(APP_FOLDER, CUSTOM_BUTTONS_FOLDER).getPath());
+                File searchDir = new File(sd, new File(U.C.APP_FOLDER, U.C.CUSTOM_BUTTONS_FOLDER).getPath());
                 File stsFile = new File(searchDir, clickedButton.getTitle().concat(".sts"));
                 boolean deleted = stsFile.delete();
                 refreshCustomButtons();
@@ -155,7 +157,7 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
     private void refreshCustomButtons() {
 
         File sd = Environment.getExternalStorageDirectory();
-        File searchDir = new File(sd, new File(APP_FOLDER, CUSTOM_BUTTONS_FOLDER).getPath());
+        File searchDir = new File(sd, new File(U.C.APP_FOLDER, U.C.CUSTOM_BUTTONS_FOLDER).getPath());
 
         // első indulásnál létrehozza a mappát ha még nem létezett
         boolean result = searchDir.mkdirs();
