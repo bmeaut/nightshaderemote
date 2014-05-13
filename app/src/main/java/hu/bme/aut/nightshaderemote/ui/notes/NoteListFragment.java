@@ -34,8 +34,6 @@ import hu.bme.aut.nightshaderemote.U;
 public class NoteListFragment extends Fragment implements NewNoteDialogFragment.NoteAddedListener {
 
     public static final String TAG = "NoteListFragment";
-
-    private final String KEY_NOTE = "note";
     private NotesAdapter adapter;
 
     protected Note selectedNote;

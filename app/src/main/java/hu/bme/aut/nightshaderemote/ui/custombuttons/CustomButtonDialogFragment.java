@@ -23,6 +23,9 @@ import hu.bme.aut.nightshaderemote.R;
 public class CustomButtonDialogFragment extends DialogFragment {
     public static final String TAG = "ButtonDialogFragment";
 
+    public final String KEY_FILENAME = "filename";
+    public final String KEY_SCRIPT = "script";
+
     private EditText fileNameText;
     private EditText scriptText;
     private String initialFileName;
@@ -80,6 +83,15 @@ public class CustomButtonDialogFragment extends DialogFragment {
         fileNameText.setText(initialFileName);
         scriptText.setText(initialScript);
 
+        if(savedInstanceState != null){
+            if(savedInstanceState.containsKey(KEY_FILENAME)){
+                fileNameText.setText(savedInstanceState.getString(KEY_FILENAME));
+            }
+            if(savedInstanceState.containsKey(KEY_SCRIPT)){
+                scriptText.setText(savedInstanceState.getString(KEY_SCRIPT));
+            }
+        }
+
 
         root.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +119,13 @@ public class CustomButtonDialogFragment extends DialogFragment {
             }
         });
         return root;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_FILENAME,fileNameText.getText().toString());
+        outState.putString(KEY_SCRIPT,scriptText.getText().toString());
     }
 
     public void createSTSFile(String sFileName, String sBody) {
