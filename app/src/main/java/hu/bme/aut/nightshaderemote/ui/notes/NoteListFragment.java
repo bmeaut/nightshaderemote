@@ -181,9 +181,13 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
      */
     private void displayNote() {
         if (selectedNote != null) {
+            spinner.setVisibility(View.VISIBLE);
+            noteText.setVisibility(View.VISIBLE);
             noteText.setText(selectedNote.getContent());
         } else {
-            noteText.setText(getString(R.string.notes_default_text));
+            spinner.setVisibility(View.INVISIBLE);
+            noteText.setVisibility(View.INVISIBLE);
+            //noteText.setText(getString(R.string.notes_default_text));
         }
     }
 
