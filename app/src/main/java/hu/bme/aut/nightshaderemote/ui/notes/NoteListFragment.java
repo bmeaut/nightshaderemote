@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,6 +34,8 @@ import hu.bme.aut.nightshaderemote.U;
 public class NoteListFragment extends Fragment implements NewNoteDialogFragment.NoteAddedListener {
 
     public static final String TAG = "NoteListFragment";
+
+    private final String KEY_NOTE = "note";
     private NotesAdapter adapter;
 
     protected Note selectedNote;
@@ -59,11 +62,20 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
         adapter = new NotesAdapter();
         spinner.setAdapter(adapter);
         noteText =((EditText) root.findViewById(R.id.noteText));
-        Button save = ((Button) root.findViewById(R.id.save));
 
-        save.setOnClickListener(new View.OnClickListener() {
+        noteText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
                 if (selectedNote != null) {
                     selectedNote.setContent(noteText.getText().toString());
                 }
@@ -92,7 +104,7 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
 
     private void displayNote() {
         if (selectedNote != null) {
-            noteText.setText(selectedNote.getContent());
+                noteText.setText(selectedNote.getContent());
         } else {
             noteText.setText(getString(R.string.notes_default_text));
         }
@@ -274,5 +286,4 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
             return items.indexOf(note);
         }
     }
-
 }
