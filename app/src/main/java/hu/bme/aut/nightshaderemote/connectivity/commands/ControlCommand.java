@@ -19,6 +19,11 @@ public class ControlCommand implements Command {
         DESELECT("deselect"),
 
         RESET("reset"),
+
+        FASTER("timeFaster"),
+        SLOWER("timeSlower"),
+        REAL_TIME("timeReal"),
+        CURRENT_TIME("timeCurrent"),
         ;
 
         private String uriPart;

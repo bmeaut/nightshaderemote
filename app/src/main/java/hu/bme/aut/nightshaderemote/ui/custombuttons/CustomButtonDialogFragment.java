@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -37,8 +38,7 @@ public class CustomButtonDialogFragment extends DialogFragment {
             try {
                 listener = (IButtonAddedListener) getTargetFragment();
             } catch (ClassCastException ce) {
-                Log.e(TAG,
-                        "Target Fragment does not implement fragment interface!");
+                Log.e(TAG, "Target Fragment does not implement fragment interface!");
             } catch (Exception e) {
                 Log.e(TAG, "Unhandled exception!");
                 e.printStackTrace();
@@ -50,7 +50,6 @@ public class CustomButtonDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.dialog_fragment_custombutton, container, false);
 
-        //TODO Nem tudom hogy a cím kiírása így elég szép megoldás-e, most ezt sikerült kitalálni :)
         switch (getArguments().getString("Mode")) {
             case "NEW":
                 getDialog().setTitle("New Button");
@@ -88,11 +87,16 @@ public class CustomButtonDialogFragment extends DialogFragment {
                 String fileName = fileNameText.getText().toString().concat(".sts");
                 String script = scriptText.getText().toString();
 
-                createSTSFile(fileName, script);
-                if (listener != null) {
-                    listener.onButtonAdded();
+                if(fileName.equals(".sts")) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_entername), Toast.LENGTH_SHORT).show();
+                }else {
+
+                    createSTSFile(fileName, script);
+                    if (listener != null) {
+                        listener.onButtonAdded();
+                    }
+                    dismiss();
                 }
-                dismiss();
             }
         });
 

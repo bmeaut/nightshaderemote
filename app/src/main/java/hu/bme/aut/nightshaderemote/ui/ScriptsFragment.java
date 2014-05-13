@@ -49,7 +49,7 @@ public class ScriptsFragment extends Fragment {
                              Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_scripts, container, false);
 
-        root.findViewById(R.id.scriptBuPlay).setOnClickListener(new View.OnClickListener() {
+        root.findViewById(R.id.scriptPlay).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Command c = new ControlCommand(ControlCommand.CommandName.PLAY_PAUSE);
@@ -57,14 +57,49 @@ public class ScriptsFragment extends Fragment {
             }
         });
 
-        root.findViewById(R.id.scriptBuPlay).setOnLongClickListener(new View.OnLongClickListener() {
+        root.findViewById(R.id.scriptStop).setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onClick(View v) {
                 Command c = new ControlCommand(ControlCommand.CommandName.STOP);
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
-                return true;
             }
         });
+
+
+
+
+        root.findViewById(R.id.timeSlower).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Command c = new ControlCommand(ControlCommand.CommandName.SLOWER);
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
+            }
+        });
+
+        root.findViewById(R.id.timeReal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Command c = new ControlCommand(ControlCommand.CommandName.REAL_TIME);
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
+            }
+        });
+
+        root.findViewById(R.id.timeFaster).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Command c = new ControlCommand(ControlCommand.CommandName.FASTER);
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
+            }
+        });
+
+        root.findViewById(R.id.timeCurrent).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Command c = new ControlCommand(ControlCommand.CommandName.CURRENT_TIME);
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
+            }
+        });
+
 
         mScriptList = (ListView) root.findViewById(R.id.scriptList);
         adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, new ArrayList<String>());

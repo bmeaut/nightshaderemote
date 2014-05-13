@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
@@ -21,8 +20,6 @@ import java.util.List;
 
 import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.connectivity.CommandHandler;
-import hu.bme.aut.nightshaderemote.connectivity.commands.Command;
-import hu.bme.aut.nightshaderemote.connectivity.commands.ControlCommand;
 import hu.bme.aut.nightshaderemote.connectivity.models.JResponse;
 import hu.bme.aut.nightshaderemote.ui.custombuttons.CustomButtonsFragment;
 import hu.bme.aut.nightshaderemote.ui.notes.NoteListFragment;
@@ -53,7 +50,7 @@ public class MainActivity extends ActionBarActivity {
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(this);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -106,8 +103,8 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(new Intent(this, PreferencesActivity.class));
                 return true;
             case R.id.action_reset:
-                Command c = new ControlCommand(ControlCommand.CommandName.RESET);
-                LocalBroadcastManager.getInstance(this).sendBroadcast(CommandHandler.createIntent(c));
+                //TODO Kedves Ákos! Ide jön a resetelő metódus ! :)
+                Toast.makeText(this,"Rátenyereltél a Resetre",Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -119,22 +116,30 @@ public class MainActivity extends ActionBarActivity {
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
-        private List<Fragment> fragmentList;
+        private final MainActivity mActivity;
+        private List<PageInfo> fragmentList;
 
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-            fragmentList = new ArrayList<>();
-            fragmentList.add(ButtonsFragment.newInstance());
-            fragmentList.add(ScriptsFragment.newInstance());
-            fragmentList.add(CustomButtonsFragment.newInstance());
-            fragmentList.add(ObjectFragment.newInstance());
-            fragmentList.add(NoteListFragment.newInstance());
+        public SectionsPagerAdapter(MainActivity activity) {
+            super(activity.getSupportFragmentManager());
+            this.mActivity = activity;
+            this.fragmentList = new ArrayList<>();
+            addPage(ButtonsFragment.class, null, getString(R.string.title_buttons));
+            addPage(ScriptsFragment.class, null, getString(R.string.title_scripts));
+            addPage(CustomButtonsFragment.class, null, getString(R.string.title_custombuttons));
+            addPage(ObjectFragment.class, null, getString(R.string.title_objectmanager));
+            addPage(NoteListFragment.class, null, getString(R.string.title_notes));
+        }
+
+        public void addPage(Class<? extends Fragment> fragmentClass, Bundle args, String title) {
+            final PageInfo pi = new PageInfo(fragmentClass, args, title);
+            fragmentList.add(pi);
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            return fragmentList.get(position);
+            final PageInfo pi = fragmentList.get(position);
+            return Fragment.instantiate(mActivity, pi.fragmentClass.getName(), pi.args);
         }
 
         @Override
@@ -145,10 +150,12 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public void onPageSelected(int position) {
+            mActivity.setTitle(fragmentList.get(position).title);
+
             final InputMethodManager inputMethodManager =
                     (InputMethodManager) MainActivity.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
 
-            if (fragmentList.get(position).getClass() != ObjectFragment.class) {
+            if (fragmentList.get(position).fragmentClass != ObjectFragment.class) {
                 inputMethodManager.hideSoftInputFromWindow(MainActivity.this.mViewPager.getApplicationWindowToken(), 0);
             }
         }
@@ -158,5 +165,17 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public void onPageScrollStateChanged(int state) {}
+
+        private class PageInfo {
+            public final Class<? extends Fragment> fragmentClass;
+            public final Bundle args;
+            public final String title;
+
+            private PageInfo(Class<? extends Fragment> fragmentClass, Bundle args, String title) {
+                this.fragmentClass = fragmentClass;
+                this.args = args;
+                this.title = title;
+            }
+        }
     }
 }
