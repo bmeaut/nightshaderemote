@@ -156,6 +156,8 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
         Note note = new Note(f);
         adapter.add(note);
         spinner.setSelection(adapter.getPosition(note), false);
+
+        displayNote();
     }
 
     /**

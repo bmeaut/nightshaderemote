@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,17 +22,15 @@ import hu.bme.aut.nightshaderemote.R;
  * Created by Marci on 2014.03.20..
  */
 public class CustomButtonDialogFragment extends DialogFragment {
-    public static final String TAG = "ButtonDialogFragment";
 
+    public static final String TAG = "ButtonDialogFragment";
     public final String KEY_FILENAME = "filename";
     public final String KEY_SCRIPT = "script";
-
     private EditText fileNameText;
     private EditText scriptText;
-    private String initialFileName;
-    private String initialScript;
+    private Button ok;
+    private Button cancel;
     private IButtonAddedListener listener;
-
 
     @Override
     public void onAttach(Activity activity) {
@@ -53,6 +52,14 @@ public class CustomButtonDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.dialog_fragment_custombutton, container, false);
 
+        fileNameText = (EditText) root.findViewById(R.id.filename);
+        scriptText = (EditText) root.findViewById(R.id.script);
+        ok = (Button)root.findViewById(R.id.ok);
+        cancel = (Button)root.findViewById(R.id.cancel);
+
+        String initialFileName = "";
+        String initialScript = "";
+
         switch (getArguments().getString("Mode")) {
             case "NEW":
                 getDialog().setTitle("New Button");
@@ -62,14 +69,6 @@ public class CustomButtonDialogFragment extends DialogFragment {
                 break;
         }
 
-        fileNameText = (EditText) root.findViewById(R.id.filename);
-        scriptText = (EditText) root.findViewById(R.id.script);
-
-        // Beállítja a kezdeti értékeket
-
-        initialFileName = "";
-        initialScript = "";
-
         if (getArguments() != null) {
             if (getArguments().containsKey("Title")) {
                 initialFileName = getArguments().getString("Title");
@@ -78,7 +77,6 @@ public class CustomButtonDialogFragment extends DialogFragment {
                 initialScript = getArguments().getString("Script");
             }
         }
-
 
         fileNameText.setText(initialFileName);
         scriptText.setText(initialScript);
@@ -92,8 +90,7 @@ public class CustomButtonDialogFragment extends DialogFragment {
             }
         }
 
-
-        root.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
+        ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String fileName = fileNameText.getText().toString().concat(".sts");
@@ -102,7 +99,6 @@ public class CustomButtonDialogFragment extends DialogFragment {
                 if(fileName.equals(".sts")) {
                     Toast.makeText(getActivity(), getResources().getString(R.string.error_entername), Toast.LENGTH_SHORT).show();
                 }else {
-
                     createSTSFile(fileName, script);
                     if (listener != null) {
                         listener.onButtonAdded();
@@ -128,6 +124,11 @@ public class CustomButtonDialogFragment extends DialogFragment {
         outState.putString(KEY_SCRIPT,scriptText.getText().toString());
     }
 
+    /**
+     *  Létrehoz egy sts fájlt
+     * @param sFileName A létrehozandó fájl neve
+     * @param sBody A létrehozandó fájl tartalma
+     */
     public void createSTSFile(String sFileName, String sBody) {
         final String APP_FOLDER = "NightshadeRemote";
         final String CUSTOM_BUTTONS_FOLDER = "custom_buttons";
@@ -149,12 +150,10 @@ public class CustomButtonDialogFragment extends DialogFragment {
                     writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
-                // wtf
             }
         }
     }
 
-    //interface
     public interface IButtonAddedListener {
         void onButtonAdded();
     }
