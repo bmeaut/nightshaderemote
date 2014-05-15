@@ -69,6 +69,7 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
 
         TextView empty = new TextView(getActivity());
         empty.setText(getString(R.string.custombuttons_empty_text));
+        gridView.setEmptyView(empty);
 
         setHasOptionsMenu(true);
         refreshCustomButtons();
