@@ -20,6 +20,8 @@ import java.util.List;
 
 import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.connectivity.CommandHandler;
+import hu.bme.aut.nightshaderemote.connectivity.commands.Command;
+import hu.bme.aut.nightshaderemote.connectivity.commands.ControlCommand;
 import hu.bme.aut.nightshaderemote.connectivity.models.JResponse;
 import hu.bme.aut.nightshaderemote.ui.custombuttons.CustomButtonsFragment;
 import hu.bme.aut.nightshaderemote.ui.notes.NoteListFragment;
@@ -103,8 +105,8 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(new Intent(this, PreferencesActivity.class));
                 return true;
             case R.id.action_reset:
-                //TODO Kedves Ákos! Ide jön a resetelő metódus ! :)
-                Toast.makeText(this,"Rátenyereltél a Resetre",Toast.LENGTH_SHORT).show();
+                Command c = new ControlCommand(ControlCommand.CommandName.RESET);
+                LocalBroadcastManager.getInstance(this).sendBroadcast(CommandHandler.createIntent(c));
         }
         return super.onOptionsItemSelected(item);
     }
