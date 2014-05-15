@@ -31,6 +31,7 @@ import java.util.List;
 
 import hu.bme.aut.nightshaderemote.FileExtensionFilter_sts;
 import hu.bme.aut.nightshaderemote.R;
+import hu.bme.aut.nightshaderemote.U;
 import hu.bme.aut.nightshaderemote.connectivity.CommandHandler;
 import hu.bme.aut.nightshaderemote.connectivity.commands.Command;
 import hu.bme.aut.nightshaderemote.connectivity.commands.ExecuteCommand;
@@ -40,11 +41,11 @@ import hu.bme.aut.nightshaderemote.connectivity.commands.ExecuteCommand;
  */
 public class CustomButtonsFragment extends Fragment implements CustomButtonDialogFragment.IButtonAddedListener {
 
-    CustomButton clickedButton; // TODO egyelőre nem tudom szebben megoldani
-
     public static final String TAG = "CustomButtonsFragment";
     private GridView gridView;
-    CustomButtonsAdapter customButtonsAdapter;
+    private CustomButton clickedButton;
+    private CustomButtonsAdapter customButtonsAdapter;
+
 
 
     public static CustomButtonsFragment newInstance() {
@@ -54,22 +55,20 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
         return fragment;
     }
 
-    public CustomButtonsFragment() {
+    public CustomButtonsFragment(){
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_custombuttons, container, false);
 
         gridView = (GridView) root.findViewById(R.id.customButtonList);
         customButtonsAdapter = new CustomButtonsAdapter();
         gridView.setAdapter(customButtonsAdapter);
 
+        setHasOptionsMenu(true);
         refreshCustomButtons();
 
-
-        setHasOptionsMenu(true);
         return root;
     }
 
@@ -80,12 +79,6 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
         String scriptContent = cubu.getScriptText();
         if (!TextUtils.isEmpty(scriptContent)) {
             Command c = new ExecuteCommand(scriptContent);
-            /*new SendCommand(U.getServerAddressPref(), U.getServerPortPref(), new SendCommand.OnCommandSentListener() {
-                @Override
-                public void onCommandSent(String result) {
-                    Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
-                }
-            }).execute(c);*/
             LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
         }
     }
@@ -103,12 +96,9 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         switch (item.getItemId()) {
             case R.id.addnewitem:
-                //a new button gomb megnyomására létrejön egy dialódus fragment
                 CustomButtonDialogFragment addNewButtonDialog = new CustomButtonDialogFragment();
                 Bundle b = new Bundle();
                 b.putString("Mode", "NEW");
@@ -134,18 +124,14 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
 
         switch (item.getItemId()) {
             case R.id.delete_item:
-                final String APP_FOLDER = "NightshadeRemote";
-                final String CUSTOM_BUTTONS_FOLDER = "custom_buttons";
-
                 File sd = Environment.getExternalStorageDirectory();
-                File searchDir = new File(sd, new File(APP_FOLDER, CUSTOM_BUTTONS_FOLDER).getPath());
-                File stsFile = new File(searchDir, clickedButton.getTitle().concat(".sts")); // TODO ezzel így csak kisbetűs sts kiterjesztésű fájt lehet törölni
+                File searchDir = new File(sd, new File(U.C.APP_FOLDER, U.C.CUSTOM_BUTTONS_FOLDER).getPath());
+                File stsFile = new File(searchDir, clickedButton.getTitle().concat(".sts"));
                 boolean deleted = stsFile.delete();
                 refreshCustomButtons();
                 return true;
 
             case R.id.edit_item:
-                //Toast.makeText(getActivity(),"Edit", Toast.LENGTH_SHORT).show(); //TODO teszteléshez
                 CustomButtonDialogFragment editButtonDialog = new CustomButtonDialogFragment();
                 Bundle b = new Bundle();
                 b.putString("Title", clickedButton.getTitle());
@@ -165,28 +151,24 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
         refreshCustomButtons();
     }
 
+    /**
+     * Frissíti a CustomButton listát a telepített mappából
+     */
     private void refreshCustomButtons() {
 
-        final String APP_FOLDER = "NightshadeRemote";
-        final String CUSTOM_BUTTONS_FOLDER = "custom_buttons";
-
         File sd = Environment.getExternalStorageDirectory();
-        File searchDir = new File(sd, new File(APP_FOLDER, CUSTOM_BUTTONS_FOLDER).getPath());
+        File searchDir = new File(sd, new File(U.C.APP_FOLDER, U.C.CUSTOM_BUTTONS_FOLDER).getPath());
 
         // első indulásnál létrehozza a mappát ha még nem létezett
         boolean result = searchDir.mkdirs();
-
         // beolvassa az sts fájlokat egy tömbbe
         File[] files = searchDir.listFiles(new FileExtensionFilter_sts());
-
         // kiüríti a customButtonList tömböt, hogy újraépíthesse, így nem duplikálódnak az elemek
         customButtonsAdapter.clear();
-
         // végigfut a tömbön és létrehozza custom button objektumokat
         List<CustomButton> fromDirectory = new ArrayList<>(files.length);
         for (File f : files) {
             StringBuilder scriptContent = new StringBuilder();
-
             BufferedReader reader = null;
             try {
                 reader = new BufferedReader(new FileReader(f));
@@ -207,11 +189,8 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
                     }
                 }
             }
-
-
             fromDirectory.add(new CustomButton(f.getName().substring(0, f.getName().length() - 4), scriptContent.toString()));
         }
-
         customButtonsAdapter.addAll(fromDirectory);
     }
 
@@ -272,12 +251,12 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
 
             Button button = (Button) itemView.findViewById(R.id.button);
 
-            //TODO a cím hossza nincs kisképernyős telefonokon tesztelve
             if (customButton.getTitle().length() > 8) {
                 button.setText(customButton.getTitle().substring(0, 7) + "...");
             } else {
                 button.setText(customButton.getTitle());
             }
+
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

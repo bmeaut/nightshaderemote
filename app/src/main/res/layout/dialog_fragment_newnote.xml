@@ -5,6 +5,18 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_title"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/noteTitleLabel"/>
+
+    <EditText
+        android:id="@+id/noteTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -23,17 +35,5 @@
             android:layout_height="wrap_content"
             android:text="@string/button_ok"/>
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_title"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/noteTitleLabel"/>
-
-    <EditText
-        android:id="@+id/noteTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
 </LinearLayout>
