@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -103,6 +104,10 @@ public class ScriptsFragment extends Fragment {
         mScriptList = (ListView) root.findViewById(R.id.scriptList);
         adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, new ArrayList<String>());
         mScriptList.setAdapter(adapter);
+        
+        TextView empty = new TextView(getActivity());
+        empty.setText(getString(R.string.scripts_empty_text));
+        mScriptList.setEmptyView(empty);
 
         mScriptList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

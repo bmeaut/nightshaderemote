@@ -36,9 +36,12 @@
     <string name="title_scripts">Scripts</string>
     <string name="title_custombuttons">Custom Buttons</string>
     <string name="title_notes">Notes</string>
-    <string name="notes_default_text">Lorem ipsum default text....</string>
     <string name="title_newnote">New Note</string>
 
+    <string name="scripts_empty_text">There are no scripts.
+To run scripts with the Nightshade program, place some sts files to your SD-Card into the NightshadeRemote/scripts folder.</string>
+    <string name="custombuttons_empty_text">Press the \"Add\" button on the toolbar to add custom buttons!</string>
+    <string name="notes_default_text">Press the \"Add\" button on the toolbar to add notes!</string>
 
 
     <string name="objects_from_catalog_label">From catalog</string>
@@ -49,6 +52,7 @@
     <string name="object_nothing_selected">Nothing selected</string>
     <string name="object_unselect_label">Unselect object</string>
     <string name="title_objectmanager">Object manager</string>
+
     <string-array name="catalog_types">
         <item>M</item>
         <item>NGC</item>

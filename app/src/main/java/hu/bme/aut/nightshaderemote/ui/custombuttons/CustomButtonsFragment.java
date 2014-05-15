@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -65,6 +66,9 @@ public class CustomButtonsFragment extends Fragment implements CustomButtonDialo
         gridView = (GridView) root.findViewById(R.id.customButtonList);
         customButtonsAdapter = new CustomButtonsAdapter();
         gridView.setAdapter(customButtonsAdapter);
+
+        TextView empty = new TextView(getActivity());
+        empty.setText(getString(R.string.custombuttons_empty_text));
 
         setHasOptionsMenu(true);
         refreshCustomButtons();

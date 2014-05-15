@@ -40,6 +40,8 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
     EditText noteText;
     Spinner spinner;
 
+    TextView empty;
+
     public static NoteListFragment newInstance() {
         NoteListFragment fragment = new NoteListFragment();
         Bundle args = new Bundle();
@@ -58,6 +60,7 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
         adapter = new NotesAdapter();
         spinner.setAdapter(adapter);
         noteText =((EditText) root.findViewById(R.id.noteText));
+        empty = (TextView) root.findViewById(R.id.emptyText);
 
         setHasOptionsMenu(true);
 
@@ -184,10 +187,11 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
             spinner.setVisibility(View.VISIBLE);
             noteText.setVisibility(View.VISIBLE);
             noteText.setText(selectedNote.getContent());
+            empty.setVisibility(View.GONE);
         } else {
-            spinner.setVisibility(View.INVISIBLE);
-            noteText.setVisibility(View.INVISIBLE);
-            //noteText.setText(getString(R.string.notes_default_text));
+            spinner.setVisibility(View.GONE);
+            noteText.setVisibility(View.GONE);
+            empty.setVisibility(View.VISIBLE);
         }
     }
 
