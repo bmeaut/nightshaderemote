@@ -118,7 +118,7 @@ public class ButtonsFragment extends Fragment {
         root.findViewById(R.id.toggleButton_constart).setTag(new FlagCommand(FlagCommand.CommandName.CONSTELLATION_ART, FlagCommand.CommandState.TOGGLE));
 
         root.findViewById(R.id.toggleButton_azigrid).setTag(new FlagCommand(FlagCommand.CommandName.AZIMUTHAL_GRID, FlagCommand.CommandState.TOGGLE));
-        root.findViewById(R.id.toggleButton_equagrid).setTag(new FlagCommand(FlagCommand.CommandName.EQUATORIAL_GRID, FlagCommand.CommandState.TOGGLE));
+        root.findViewById(R.id.toggleButton_equagrid).setTag(new FlagCommand(FlagCommand.CommandName.EQUTORIAL_GRID, FlagCommand.CommandState.TOGGLE));
         root.findViewById(R.id.toggleButton_ground).setTag(new FlagCommand(FlagCommand.CommandName.GROUND, FlagCommand.CommandState.TOGGLE));
 
         root.findViewById(R.id.toggleButton_cardinalpoints).setTag(new FlagCommand(FlagCommand.CommandName.CARDINAL_POINTS, FlagCommand.CommandState.TOGGLE));

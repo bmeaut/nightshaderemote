@@ -24,7 +24,7 @@
     <string name="label_notelist">Notes</string>
     <string name="label_filename">File Name:</string>
     <string name="label_scrip">Script:</string>
-    <string name="button_ok">Ok</string>
+    <string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
     <string name="title_activity_note">Nightshade Remote</string>
     <string name="hello_world">Hello world!</string>
@@ -37,6 +37,7 @@
     <string name="title_custombuttons">Custom Buttons</string>
     <string name="title_notes">Notes</string>
     <string name="notes_default_text">Lorem ipsum default text....</string>
+    <string name="title_newnote">New Note</string>
 
 
 
