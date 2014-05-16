@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 /**
+ * Filefilter az ".sts" kiterjesztésű fájlok szűrsésre.
+ *
  * Created by Marci on 2014.03.17..
  */
 public class FileExtensionFilter_sts implements FilenameFilter {

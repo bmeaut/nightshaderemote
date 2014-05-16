@@ -38,6 +38,16 @@ import hu.bme.aut.nightshaderemote.connectivity.commands.Command;
 import hu.bme.aut.nightshaderemote.connectivity.commands.ExecuteCommand;
 
 /**
+ * Az "SD_CARD/NightShadeRemote/custom_buttons" mappában található ".sts" kiterjesztésű fájlokat beolvassa.
+ * A megfelelő megjelenítés érdekében ezeknek UTF-8 karakterkódolásúnak kell lenni.
+ * A fájlokból listát készít és a nevüket megjeleníti egy GridView-ban Gombok formájában. Az egyes gombokat megnyomva
+ * az ".sts" kiterjesztésű fájlok tartalam scriptként futtatásra kerül a szerveren
+ * Toolbar-on lévő "Add" gobbal létrehozhatunk új CustomButton-okat
+ * A gombokat hosszan nyomva tartva a Context menüben a "Edit" és "Delete" lehetőség érhető el.
+ * A Context menübe nem a GridView van beregisztálva, hanem az egyes CustomButton-ok
+ * A "Delete" az adott gombhoz tartozó fájlt törli a "custom_buttons" mappából és frissíti a GridView-t
+ * "Edit" és az "Add" (Toolbar-on) hatására a CustomButtonsDialogFragment dialógus "ablak" jelenik meg.
+ *
  * Created by Marci on 2014.03.15..
  */
 public class CustomButtonsFragment extends Fragment implements CustomButtonDialogFragment.IButtonAddedListener {

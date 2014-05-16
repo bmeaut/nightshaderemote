@@ -24,6 +24,12 @@ import hu.bme.aut.nightshaderemote.connectivity.commands.ControlCommand;
 import hu.bme.aut.nightshaderemote.connectivity.commands.RunCommand;
 
 /**
+ * Az "SD_CARD/NightShadeRemote/scripts" mappában található ".sts" kiterjesztésű fájlokat beolvassa
+ * a fájlokból listát készít és a nevüket megjeleníti egy List View-ban. Az egyes elemeket megéritve
+ * a fájlok tartalmát, mint scriptek futtatásra kerülnek a szerveren.
+ * A NightShade-ben szokásos "időmanipuláló" gombok és a scriptek futtatását kezelő play/pause és stop gombok
+ * is megtalálhatóak ezen a z oldalon.
+ *
  * Created by Marci on 2014.03.01..
  */
 public class ScriptsFragment extends Fragment {

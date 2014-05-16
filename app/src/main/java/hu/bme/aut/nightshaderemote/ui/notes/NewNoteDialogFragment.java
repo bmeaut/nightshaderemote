@@ -15,6 +15,9 @@ import android.widget.Toast;
 import hu.bme.aut.nightshaderemote.R;
 
 /**
+ * Új note létrehozásakor felugró "ablak"
+ * A létrehozandó fájl nevét lehet beírni, van OK és Cancel gomb, a szokásos funkciókkal.
+ *
  * Created by Marci on 2014.05.10..
  */
 public class NewNoteDialogFragment extends DialogFragment {

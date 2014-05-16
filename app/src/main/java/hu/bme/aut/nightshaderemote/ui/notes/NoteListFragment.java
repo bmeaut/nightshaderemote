@@ -29,6 +29,13 @@ import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.U;
 
 /**
+ * Az "SD_CARD/NightShadeRemote/notes" mappában található ".txt" kiterjesztésű fájlokat beolvassa.
+ * A megfelelő megjelenítés érdekében ezeknek UTF-8 karakterkódolásúnak kell lenni.
+ * A fájlokból listát készít és a nevüket megjeleníti egy spinnerben. Az egyes elemeket kiválazstva
+ * a fájlok tartalmát, megjeleníti egy scrollozható EditView-ban amit szerkeszteni is lehet.
+ * Az EditView-ban történő változás hatására a txt fájl is mentődik.
+ * Toolbar-on lévő "Add" gobbal létrehozhatunk új note-ot, "Delete" gombbal kitörölhetjük a kiválasztott elemet.
+ *
  * Created by Marci on 2014.05.07..
  */
 public class NoteListFragment extends Fragment implements NewNoteDialogFragment.NoteAddedListener {
@@ -213,8 +220,8 @@ public class NoteListFragment extends Fragment implements NewNoteDialogFragment.
     }
 
     /**
-     *
-     * @param sFileName
+     * Létrehoz egy üres txt fájlt a NightShadeRemote/notes mappában
+     * @param sFileName A létrehozandó fájl neve
      */
     public File createTXTFile(String sFileName) {
         final String APP_FOLDER = "NightshadeRemote";

@@ -26,6 +26,14 @@ import hu.bme.aut.nightshaderemote.connectivity.models.JResponse;
 import hu.bme.aut.nightshaderemote.ui.custombuttons.CustomButtonsFragment;
 import hu.bme.aut.nightshaderemote.ui.notes.NoteListFragment;
 
+/**
+ * Az alkalmazás magaja / belépési pontja.
+ * View Pager segítségével jeleníti meg az egyes fragment-eket, amik az alkalmazás egy-egy oldalát alkotják.
+ * Lapozáskor frissül az Activity Title az aktuális oldal címére.
+ * Az Options Menüben helyet kap a Preferences és a Reset gomb.
+ * A Reset gomb hatására a NightShade visszatér alapállapotba.
+ */
+
 public class MainActivity extends ActionBarActivity {
 
     /**
