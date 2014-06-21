@@ -6,13 +6,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="hu.bme.aut.nightshaderemote.NightshadeRemoteApplication"
+        android:name=".NightshadeRemoteApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon_n"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="hu.bme.aut.nightshaderemote.ui.MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,12 +21,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="hu.bme.aut.nightshaderemote.ui.PreferencesActivity"
+            android:name=".ui.PreferencesActivity"
             android:label="@string/title_activity_preferences" >
         </activity>
         <activity
-            android:name=".ui.notes.NoteActivity"
-            android:label="@string/title_activity_note" >
+            android:name=".ui.CreditsActivity"
+            android:label="@string/title_activity_credits"
+            android:parentActivityName=".ui.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="hu.bme.aut.nightshaderemote.ui.MainActivity" />
         </activity>
     </application>
 

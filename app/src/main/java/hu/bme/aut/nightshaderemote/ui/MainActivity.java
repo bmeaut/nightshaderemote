@@ -107,6 +107,10 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_reset:
                 Command c = new ControlCommand(ControlCommand.CommandName.RESET);
                 LocalBroadcastManager.getInstance(this).sendBroadcast(CommandHandler.createIntent(c));
+                return true;
+            case R.id.action_credits:
+                startActivity(new Intent(this, CreditsActivity.class));
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

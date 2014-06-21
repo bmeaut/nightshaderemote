@@ -68,4 +68,32 @@ To run scripts with the Nightshade program, place some sts files to your SD-Card
         <item>constellation_star</item>
     </string-array>
 
+    <string name="title_activity_credits">Credits</string>
+    <string name="credits_text"><![CDATA[
+        <h2>Created by:</h2>
+        <p>
+            Ákos Pap<br/>
+            Márton Kerekes
+        </p>
+
+        <h2>Supervisors:</h2>
+        <p>
+            Bernadett Belucz<br/>
+            Kristóf Csorba<br/>
+            Norbert Koszó
+        </p>
+
+        <h2>Special thanks to:</h2>
+        <p>
+            Anikó Bere
+        </p>
+
+        <p>
+            Budapest University of Technology and Economics<br/>
+            Department of Automation and Applied Informatics
+        </p>
+    ]]>
+    </string>
+    <string name="menu_credits">Credits</string>
+
 </resources>
