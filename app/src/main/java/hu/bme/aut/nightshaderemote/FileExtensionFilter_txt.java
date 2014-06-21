@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 /**
+ * Filefilter a ".txt" kiterjesztésű fájlok szűrsésre.
+ *
  * Created by Marci on 2014.05.07..
  */
 public class FileExtensionFilter_txt implements FilenameFilter {

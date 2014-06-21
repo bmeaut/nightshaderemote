@@ -1,6 +1,10 @@
 package hu.bme.aut.nightshaderemote.ui;
 
 /**
+ *  A 12 alap gombhoz tartozó fragment.
+ *  12 Toggle Button-t tartalmaz, amelyek állapota a szerver állapota szerint frissül.
+ *  A NightShade alapfunkcióionak kapcsolását valósítják meg, a megfelelő scriptsorok futtatásával.
+ *
  * Created by Marci on 2014.03.01..
  */
 

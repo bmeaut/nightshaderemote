@@ -5,6 +5,8 @@ import android.util.AttributeSet;
 import android.widget.ToggleButton;
 
 /**
+ * Olyan ToggleButton, ami minden körülmények között nyégyzetesen jelenik meg a kijelzőn.
+ *
  * Created by Marci on 2014.04.29..
  */
 public class SquareToggleButton extends ToggleButton {

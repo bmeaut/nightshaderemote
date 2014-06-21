@@ -20,6 +20,11 @@ import hu.bme.aut.nightshaderemote.R;
 import hu.bme.aut.nightshaderemote.U;
 
 /**
+ * A CustomButtonFragment-en a Toolbaron "Add", vagy Context menüben "Edit" funkciók használatakor jelenik meg ez a CustomButtonDialogFragment
+ * Feladata a "NightShadeRemote/custom_buttons" mappában létrehozni egy új sts fájlt, és megadni annak tartalmát, vagy egy létező fájlnak módosítani a tartalmát.
+ * A két EditText közül az egyik a fájlnév megadására, szolgál, a másik Multiline EditText egy ScrollView-ban az esetleg kicsit hosszabb script megadására szolgál.
+ * Gombok: OK, Cancel
+ *
  * Created by Marci on 2014.03.20..
  */
 public class CustomButtonDialogFragment extends DialogFragment {
