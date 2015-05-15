@@ -46,13 +46,6 @@
             android:textOn=""
             android:background="@drawable/btn_playpause"/>
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/scriptStop"
-            android:background="@drawable/btn_stop"
-            android:focusableInTouchMode="true"/>
-
     </LinearLayout>
 
 </RelativeLayout>

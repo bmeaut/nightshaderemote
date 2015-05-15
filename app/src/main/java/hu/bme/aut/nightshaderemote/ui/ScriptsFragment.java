@@ -62,17 +62,6 @@ public class ScriptsFragment extends Fragment {
             }
         });
 
-        root.findViewById(R.id.scriptStop).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Command c = new ControlCommand(ControlCommand.CommandName.STOP);
-                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(CommandHandler.createIntent(c));
-            }
-        });
-
-
-
-
         root.findViewById(R.id.timeSlower).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
