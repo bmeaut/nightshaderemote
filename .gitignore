@@ -5,3 +5,5 @@
 /.idea/libraries/**
 .idea/
 *.iml
+
+build/
