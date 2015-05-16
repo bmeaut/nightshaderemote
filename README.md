@@ -35,7 +35,7 @@ The desktop Nightshade has 12 toggle controls on the bottom left that toggle the
 </table>
 
 ### Running scripts
-![](docs/images/scs_scripts.png)
+![](doc/images/scs_scripts.png)
 
 The remote is capable of transmitting and running scripts found in its `NightshadeRemote/scripts`
 folder on the external storage.
@@ -63,7 +63,7 @@ currently available can be chosen from a spinner.
 ### Object manager
 _**Warning!** This is an entirely experimental feature, and doesn't always work as expected!_
 
-![](docs/images/scs_objectmanager.png)
+![](doc/images/scs_objectmanager.png)
 
 The object manager provides a search interface to look up certain objects by their catalogue number.
 If an object is found, and there is an image associated with it, the image is displayed.
